@@ -1,0 +1,74 @@
+17.  Você foi contratado para desenvolver um sistema de gerenciamento para uma barbearia local. A barbearia oferece serviços de corte de cabelo e barba para clientes. 
+Cada cliente pode agendar um horário para um serviçoespecífico e pode ter um histórico de serviços realizados na barbearia. Além disso, a barbearia tem vários barbeiros que realizam os serviços. 
+Cada barbeiro tem um nome, uma especialização (por exemplo, corte de cabelo masculino, corte de cabelo feminino, barba, etc.) e uma agenda de horários disponíveis.
+
+
+
+Quais entidades você identificaria nessa situação?
+
+As entidades são: cliente, serviço, barbeiro, agendamento, e histórico de serviços.
+
+
+
+Quais seriam os atributos de cada entidade?
+
+Cliente:
+IdCliente (PK)
+nome
+telefone
+email
+endereço
+
+Serviço:
+IdServico (PK)
+nome_servico
+descricao
+preco
+
+Barbeiro:
+IdBarbeiro (PK)
+nome
+horarios_disponiveis
+especialidade
+
+Agendamento:
+IdAgendamento (PK)
+data_horario
+IdCliente (FK)
+IdBarbeiro (FK)
+IdServico (FK)
+
+Histórico de Serviços:
+IdHistorico (PK)
+data_servico
+IdCliente (FK)
+IdServico (FK)
+Id_barbeiro (FK)
+
+
+
+Como você definiria os relacionamentos entre essas entidades?
+
+
+Relacionamento 1:N: Cliente e Agendamento - Um cliente pode fazer vários agendamentos, mas cada agendamento pertence a um único cliente.
+
+Relacionamento 1:N: Serviço e Agendamento - Um serviço pode estar associado a vários agendamentos, mas cada agendamento refere-se a um único serviço.
+
+Relacionamento 1:N: Barbeiro e Agendamento - Um barbeiro pode ter vários agendamentos, mas cada agendamento é realizado por um único barbeiro.
+
+Relacionamento 1:N: Cliente e Histórico de Serviços - Um cliente pode ter vários registros no histórico de serviços, mas cada registro no histórico pertence a um único cliente.
+
+Relacionamento 1:N: Serviço e Histórico de Serviços - Um serviço pode estar associado a vários registros no histórico, mas cada registro no histórico refere-se a um único serviço.
+
+Relacionamento 1:N: Barbeiro e Histórico de Serviços - Um barbeiro pode ter vários registros no histórico de serviços, mas cada registro no histórico é realizado por um único barbeiro.
+
+
+
+Que tipo de relacionamento existe entre as entidades "Cliente" e "Serviço"?
+
+O relacionamento entre Cliente e Serviço é muitos-para-muitos (N:N ), pois: Um cliente pode agendar e realizar vários serviços ao longo do tempo. Um serviço pode ser realizado por vários clientes.
+Esse relacionamento é implementado por meio de uma tabela associativa, com o nome de Agendamento ou a tabela Histórico de Serviços, que contém as chaves estrangeiras de ambas as entidades.
+
+
+
+
