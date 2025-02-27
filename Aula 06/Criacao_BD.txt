@@ -1,0 +1,234 @@
+mysql -u root -p
+
+show databases;
+
++-------------------------------------+
+| Database                            |
++-------------------------------------+
+| #mysql50#livraria - Copia           |
+| #mysql50#mysql - Copia              |
+| #mysql50#nome_qualquer - Copia      |
+| #mysql50#performance_schema - Copia |
+| #mysql50#phpmyadmin - Copia         |
+| #mysql50#test - Copia               |
+| #mysql50#teste - Copia              |
+| #mysql50#venda - Copia              |
+| cliente2                            |
+| cliente_109                         |
+| escola_109                          |
+| escola_novo                         |
+| funcionario                         |
+| funcionario_novo                    |
+| hospital                            |
+| informatica_109                     |
+| information_schema                  |
+| livraria_109                        |
+| mydb                                |
+| mysql                               |
+| performance_schema                  |
+| projetooficina                      |
+| teste1                              |
++-------------------------------------+
+
+create database Turma_110;
+
+show databases;
+
++-------------------------------------+
+| Database                            |
++-------------------------------------+
+| #mysql50#livraria - Copia           |
+| #mysql50#mysql - Copia              |
+| #mysql50#nome_qualquer - Copia      |
+| #mysql50#performance_schema - Copia |
+| #mysql50#phpmyadmin - Copia         |
+| #mysql50#test - Copia               |
+| #mysql50#teste - Copia              |
+| #mysql50#venda - Copia              |
+| cliente2                            |
+| cliente_109                         |
+| escola_109                          |
+| escola_novo                         |
+| funcionario                         |
+| funcionario_novo                    |
+| hospital                            |
+| informatica_109                     |
+| information_schema                  |
+| livraria_109                        |
+| mydb                                |
+| mysql                               |
+| performance_schema                  |
+| projetooficina                      |
+| teste1                              |
+| turma_110                           |
++-------------------------------------+
+
+use database turma_110;
+
+create table Aluno(
+    -> idaluno int primary key auto_increment,
+    -> NomeAluno varchar(30) not null,
+    -> Sobrenome varchar(30) not null,
+    -> CPF varchar(14) not null,
+    -> DataNasc date not null,
+    -> matricula varchar(10) not null,
+    -> email varchar(50)
+    -> );
+
+show tables;
+
++---------------------+
+| Tables_in_turma_110 |
++---------------------+
+| aluno               |
++---------------------+
+
+desc aluno;
+
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| idaluno   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| NomeAluno | varchar(30) | NO   |     | NULL    |                |
+| Sobrenome | varchar(30) | NO   |     | NULL    |                |
+| CPF       | varchar(14) | NO   |     | NULL    |                |
+| DataNasc  | date        | NO   |     | NULL    |                |
+| matricula | varchar(10) | NO   |     | NULL    |                |
+| email     | varchar(50) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+
+drop table aluno;
+
+create table Aluno(
+    -> idaluno int primary key auto_increment,
+    -> NomeAluno varchar(30) not null,
+    -> Sobrenome varchar(30) not null,
+    -> CPF varchar(14) not null,
+    -> DataNasc date not null,
+    -> matricula varchar(10) not null,
+    -> email varchar(50)
+    -> );
+
+show tables;
+
+desc aluno;
+
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| idaluno   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| NomeAluno | varchar(30) | NO   |     | NULL    |                |
+| Sobrenome | varchar(30) | NO   |     | NULL    |                |
+| CPF       | varchar(14) | NO   |     | NULL    |                |
+| DataNasc  | date        | NO   |     | NULL    |                |
+| matricula | varchar(10) | NO   |     | NULL    |                |
+| email     | varchar(50) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+
+alter table aluno change matricula matr varchar(10) not null;
+
+desc aluno;
+
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| idaluno   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| NomeAluno | varchar(30) | NO   |     | NULL    |                |
+| Sobrenome | varchar(30) | NO   |     | NULL    |                |
+| CPF       | varchar(14) | NO   |     | NULL    |                |
+| DataNasc  | date        | NO   |     | NULL    |                |
+| matr      | varchar(10) | NO   |     | NULL    |                |
+| email     | varchar(50) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+
+ alter table aluno
+    -> change DataNasc DataNascimento date not null;
+
+ desc aluno;
+
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| idaluno        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| NomeAluno      | varchar(30) | NO   |     | NULL    |                |
+| Sobrenome      | varchar(30) | NO   |     | NULL    |                |
+| CPF            | varchar(14) | NO   |     | NULL    |                |
+| DataNascimento | date        | NO   |     | NULL    |                |
+| matr           | varchar(10) | NO   |     | NULL    |                |
+| email          | varchar(50) | YES  |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+alter table aluno
+    -> add column idade varchar(10) not null;
+
+desc aluno;
+
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| idaluno        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| NomeAluno      | varchar(30) | NO   |     | NULL    |                |
+| Sobrenome      | varchar(30) | NO   |     | NULL    |                |
+| CPF            | varchar(14) | NO   |     | NULL    |                |
+| DataNascimento | date        | NO   |     | NULL    |                |
+| matr           | varchar(10) | NO   |     | NULL    |                |
+| email          | varchar(50) | YES  |     | NULL    |                |
+| idade          | varchar(10) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+ alter table aluno
+    -> drop column idade;
+
+ desc aluno;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| idaluno        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| NomeAluno      | varchar(30) | NO   |     | NULL    |                |
+| Sobrenome      | varchar(30) | NO   |     | NULL    |                |
+| CPF            | varchar(14) | NO   |     | NULL    |                |
+| DataNascimento | date        | NO   |     | NULL    |                |
+| matr           | varchar(10) | NO   |     | NULL    |                |
+| email          | varchar(50) | YES  |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+
+alter table aluno
+    -> add column sexo varchar(12) not null;
+
+desc aluno;
+
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| idaluno        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| NomeAluno      | varchar(30) | NO   |     | NULL    |                |
+| Sobrenome      | varchar(30) | NO   |     | NULL    |                |
+| CPF            | varchar(14) | NO   |     | NULL    |                |
+| DataNascimento | date        | NO   |     | NULL    |                |
+| matr           | varchar(10) | NO   |     | NULL    |                |
+| email          | varchar(50) | YES  |     | NULL    |                |
+| sexo           | varchar(12) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+ alter table aluno
+    -> add column idade varchar(10) not null after CPF;
+
+ desc aluno;
+
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| idaluno        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| NomeAluno      | varchar(30) | NO   |     | NULL    |                |
+| Sobrenome      | varchar(30) | NO   |     | NULL    |                |
+| CPF            | varchar(14) | NO   |     | NULL    |                |
+| idade          | varchar(10) | NO   |     | NULL    |                |
+| DataNascimento | date        | NO   |     | NULL    |                |
+| matr           | varchar(10) | NO   |     | NULL    |                |
+| email          | varchar(50) | YES  |     | NULL    |                |
+| sexo           | varchar(12) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+
+
