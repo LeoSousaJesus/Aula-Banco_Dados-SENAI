@@ -1,0 +1,322 @@
+mysql -u root -p
+
+show databases;
+
++-------------------------------------+
+| Database                            |
++-------------------------------------+
+| #mysql50#livraria - Copia           |
+| #mysql50#mysql - Copia              |
+| #mysql50#nome_qualquer - Copia      |
+| #mysql50#performance_schema - Copia |
+| #mysql50#phpmyadmin - Copia         |
+| #mysql50#test - Copia               |
+| #mysql50#teste - Copia              |
+| #mysql50#venda - Copia              |
+| cliente2                            |
+| cliente_109                         |
+| escola_109                          |
+| escola_novo                         |
+| funcionario                         |
+| funcionario_novo                    |
+| hospital                            |
+| informatica_109                     |
+| information_schema                  |
+| livraria_109                        |
+| mydb                                |
+| mysql                               |
+| performance_schema                  |
+| projetooficina                      |
+| teste1                              |
+| turma_110                           |
++-------------------------------------+
+
+create database testeDDL_110;
+
+show databases;
+
++-------------------------------------+
+| Database                            |
++-------------------------------------+
+| #mysql50#livraria - Copia           |
+| #mysql50#mysql - Copia              |
+| #mysql50#nome_qualquer - Copia      |
+| #mysql50#performance_schema - Copia |
+| #mysql50#phpmyadmin - Copia         |
+| #mysql50#test - Copia               |
+| #mysql50#teste - Copia              |
+| #mysql50#venda - Copia              |
+| cliente2                            |
+| cliente_109                         |
+| escola_109                          |
+| escola_novo                         |
+| funcionario                         |
+| funcionario_novo                    |
+| hospital                            |
+| informatica_109                     |
+| information_schema                  |
+| livraria_109                        |
+| mydb                                |
+| mysql                               |
+| performance_schema                  |
+| projetooficina                      |
+| teste1                              |
+| testeddl_110                        |
++-------------------------------------+
+
+ use testeDDL_110;
+
+create table Cliente(
+    Id_Cliente int primary key auto_increment,
+    Nome varchar(20) not null,
+    Sobrenome varchar(20),
+    CPF varchar(14) not null,
+    DataNasc date not null,
+    Saldo float(5,2) not null
+    ) default charset UTF-8;
+
+ desc cliente;
+
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| Id_Cliente | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Nome       | varchar(20) | NO   |     | NULL    |                |
+| Sobrenome  | varchar(20) | YES  |     | NULL    |                |
+| CPF        | varchar(14) | NO   |     | NULL    |                |
+| DataNasc   | date        | NO   |     | NULL    |                |
+| Saldo      | float(5,2)  | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+
+insert into cliente(Nome, Sobrenome, CPF, DataNasc, Saldo) values ("Leandro", "Sousa", "444.555.666-99", "2000-10-05", 20.30);
+
+select * from cliente;
+
++------------+---------+-----------+----------------+------------+-------+
+| Id_Cliente | Nome    | Sobrenome | CPF            | DataNasc   | Saldo |
++------------+---------+-----------+----------------+------------+-------+
+|          1 | Leandro | Sousa     | 444.555.666-99 | 2000-10-05 | 20.30 |
++------------+---------+-----------+----------------+------------+-------+
+
+ insert into cliente(Nome, Sobrenome, CPF, DataNasc, Saldo) values ("Karla", null, "222.333.444-55", "2001-04-25", 900.50);
+
+select * from cliente;
+
++------------+---------+-----------+----------------+------------+--------+
+| Id_Cliente | Nome    | Sobrenome | CPF            | DataNasc   | Saldo  |
++------------+---------+-----------+----------------+------------+--------+
+|          1 | Leandro | Sousa     | 444.555.666-99 | 2000-10-05 |  20.30 |
+|          2 | Karla   | NULL      | 222.333.444-55 | 2001-04-25 | 900.50 |
++------------+---------+-----------+----------------+------------+--------+
+
+insert into cliente values (null, "Leonardo", null, "333.444.555-77", "1987-03-18", 05.15),(null, "Gustavo", "Machado", "555.666.888-87", "1993-08-01", 2870.55);
+
+select * from cliente;
+
++------------+----------+-----------+----------------+------------+--------+
+| Id_Cliente | Nome     | Sobrenome | CPF            | DataNasc   | Saldo  |
++------------+----------+-----------+----------------+------------+--------+
+|          1 | Leandro  | Sousa     | 444.555.666-99 | 2000-10-05 |  20.30 |
+|          2 | Karla    | NULL      | 222.333.444-55 | 2001-04-25 | 900.50 |
+|          3 | Leonardo | NULL      | 333.444.555-77 | 1987-03-18 |   5.15 |
+|          4 | Gustavo  | Machado   | 555.666.888-87 | 1993-08-01 | 999.99 |
++------------+----------+-----------+----------------+------------+--------+
+
+select nome, CPF from cliente;
+
++----------+----------------+
+| nome     | CPF            |
++----------+----------------+
+| Leandro  | 444.555.666-99 |
+| Karla    | 222.333.444-55 |
+| Leonardo | 333.444.555-77 |
+| Gustavo  | 555.666.888-87 |
++----------+----------------+
+
+select Id_Cliente, nome, CPF from cliente;
+
++------------+----------+----------------+
+| Id_Cliente | nome     | CPF            |
++------------+----------+----------------+
+|          1 | Leandro  | 444.555.666-99 |
+|          2 | Karla    | 222.333.444-55 |
+|          3 | Leonardo | 333.444.555-77 |
+|          4 | Gustavo  | 555.666.888-87 |
++------------+----------+----------------+
+
+select * from cliente where Id_Cliente = 2;
+
++------------+-------+-----------+----------------+------------+--------+
+| Id_Cliente | Nome  | Sobrenome | CPF            | DataNasc   | Saldo  |
++------------+-------+-----------+----------------+------------+--------+
+|          2 | Karla | NULL      | 222.333.444-55 | 2001-04-25 | 900.50 |
++------------+-------+-----------+----------------+------------+--------+
+
+ SELECT * FROM cliente WHERE Id_Cliente IN (2, 4);
+
++------------+---------+-----------+----------------+------------+--------+
+| Id_Cliente | Nome    | Sobrenome | CPF            | DataNasc   | Saldo  |
++------------+---------+-----------+----------------+------------+--------+
+|          2 | Karla   | NULL      | 222.333.444-55 | 2001-04-25 | 900.50 |
+|          4 | Gustavo | Machado   | 555.666.888-87 | 1993-08-01 | 999.99 |
++------------+---------+-----------+----------------+------------+--------+
+
+ SELECT * FROM cliente WHERE Id_Cliente IN (1, 4);
+
++------------+---------+-----------+----------------+------------+--------+
+| Id_Cliente | Nome    | Sobrenome | CPF            | DataNasc   | Saldo  |
++------------+---------+-----------+----------------+------------+--------+
+|          1 | Leandro | Sousa     | 444.555.666-99 | 2000-10-05 |  20.30 |
+|          4 | Gustavo | Machado   | 555.666.888-87 | 1993-08-01 | 999.99 |
++------------+---------+-----------+----------------+------------+--------+
+
+SELECT * FROM cliente WHERE Id_Cliente=1 or Id_Cliente=4;
+
++------------+---------+-----------+----------------+------------+--------+
+| Id_Cliente | Nome    | Sobrenome | CPF            | DataNasc   | Saldo  |
++------------+---------+-----------+----------------+------------+--------+
+|          1 | Leandro | Sousa     | 444.555.666-99 | 2000-10-05 |  20.30 |
+|          4 | Gustavo | Machado   | 555.666.888-87 | 1993-08-01 | 999.99 |
++------------+---------+-----------+----------------+------------+--------+
+
+ select * from cliente where CPF="444.555.666-99";
+
++------------+---------+-----------+----------------+------------+-------+
+| Id_Cliente | Nome    | Sobrenome | CPF            | DataNasc   | Saldo |
++------------+---------+-----------+----------------+------------+-------+
+|          1 | Leandro | Sousa     | 444.555.666-99 | 2000-10-05 | 20.30 |
++------------+---------+-----------+----------------+------------+-------+
+
+select * from cliente where CPF IN ("444.555.666-99", "555.666.888-87");
+
++------------+---------+-----------+----------------+------------+--------+
+| Id_Cliente | Nome    | Sobrenome | CPF            | DataNasc   | Saldo  |
++------------+---------+-----------+----------------+------------+--------+
+|          1 | Leandro | Sousa     | 444.555.666-99 | 2000-10-05 |  20.30 |
+|          4 | Gustavo | Machado   | 555.666.888-87 | 1993-08-01 | 999.99 |
++------------+---------+-----------+----------------+------------+--------+
+
+MariaDB [testeDDL_110]> SELECT * FROM cliente WHERE Id_Cliente=1 or Id_Cliente=4;
++------------+---------+-----------+----------------+------------+--------+
+| Id_Cliente | Nome    | Sobrenome | CPF            | DataNasc   | Saldo  |
++------------+---------+-----------+----------------+------------+--------+
+|          1 | Leandro | Sousa     | 444.555.666-99 | 2000-10-05 |  20.30 |
+|          4 | Gustavo | Machado   | 555.666.888-87 | 1993-08-01 | 999.99 |
++------------+---------+-----------+----------------+------------+--------+
+2 rows in set (0.002 sec)
+
+MariaDB [testeDDL_110]> select * from cliente where CPF="1";
+Empty set (0.001 sec)
+
+MariaDB [testeDDL_110]> select * from cliente where CPF="444.555.666-99";
++------------+---------+-----------+----------------+------------+-------+
+| Id_Cliente | Nome    | Sobrenome | CPF            | DataNasc   | Saldo |
++------------+---------+-----------+----------------+------------+-------+
+|          1 | Leandro | Sousa     | 444.555.666-99 | 2000-10-05 | 20.30 |
++------------+---------+-----------+----------------+------------+-------+
+1 row in set (0.000 sec)
+
+MariaDB [testeDDL_110]> select * from cliente where CPF="444.555.666-99" or CPF"555.666.888-87";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '"555.666.888-87"' at line 1
+MariaDB [testeDDL_110]> select * from cliente where CPF IN ("444.555.666-99", "555.666.888-87");
++------------+---------+-----------+----------------+------------+--------+
+| Id_Cliente | Nome    | Sobrenome | CPF            | DataNasc   | Saldo  |
++------------+---------+-----------+----------------+------------+--------+
+|          1 | Leandro | Sousa     | 444.555.666-99 | 2000-10-05 |  20.30 |
+|          4 | Gustavo | Machado   | 555.666.888-87 | 1993-08-01 | 999.99 |
++------------+---------+-----------+----------------+------------+--------+
+2 rows in set (0.000 sec)
+
+MariaDB [testeDDL_110]> SELECT * FROM clientes WHERE nome LIKE 'L%';
+ERROR 1146 (42S02): Table 'testeddl_110.clientes' doesn't exist
+MariaDB [testeDDL_110]> SELECT * FROM clientes WHERE nome LIKE 'L%';
+ERROR 1146 (42S02): Table 'testeddl_110.clientes' doesn't exist
+MariaDB [testeDDL_110]> SELECT * FROM clientes WHERE nome LIKE 'g%';
+ERROR 1146 (42S02): Table 'testeddl_110.clientes' doesn't exist
+MariaDB [testeDDL_110]> SELECT * FROM cliente WHERE nome LIKE 'g%';
++------------+---------+-----------+----------------+------------+--------+
+| Id_Cliente | Nome    | Sobrenome | CPF            | DataNasc   | Saldo  |
++------------+---------+-----------+----------------+------------+--------+
+|          4 | Gustavo | Machado   | 555.666.888-87 | 1993-08-01 | 999.99 |
++------------+---------+-----------+----------------+------------+--------+
+1 row in set (0.001 sec)
+
+MariaDB [testeDDL_110]> SELECT * FROM cliente WHERE nome LIKE 'L%';
++------------+----------+-----------+----------------+------------+-------+
+| Id_Cliente | Nome     | Sobrenome | CPF            | DataNasc   | Saldo |
++------------+----------+-----------+----------------+------------+-------+
+|          1 | Leandro  | Sousa     | 444.555.666-99 | 2000-10-05 | 20.30 |
+|          3 | Leonardo | NULL      | 333.444.555-77 | 1987-03-18 |  5.15 |
++------------+----------+-----------+----------------+------------+-------+
+2 rows in set (0.000 sec)
+
+MariaDB [testeDDL_110]> SELECT
+    ->     Id_Cliente,
+    ->     Nome,
+    ->     Sobrenome,
+    ->     DataNasc,
+    ->     FLOOR(DATEDIFF(CURDATE(), DataNasc) / 365) AS Idade
+    -> FROM clientes
+    -> WHERE Id_Cliente = 1;
+ERROR 1146 (42S02): Table 'testeddl_110.clientes' doesn't exist
+MariaDB [testeDDL_110]> SELECT
+    ->     id,
+    ->     nome,
+    ->     data_nascimento,
+    ->     TIMESTAMPDIFF(YEAR, data_nascimento, CURDATE()) AS idade
+    -> FROM
+    ->     usuarios;
+ERROR 1146 (42S02): Table 'testeddl_110.usuarios' doesn't exist
+MariaDB [testeDDL_110]> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2025-02-28 17:23:55 |
++---------------------+
+1 row in set (0.001 sec)
+
+MariaDB [testeDDL_110]> SELECT Id_Cliente, Nome, Sobrenome, DataNasc, TIMESTAMDIFF(YEAR, DataNasc, CURDATE()) as idade from Id_Cliente;
+ERROR 1146 (42S02): Table 'testeddl_110.id_cliente' doesn't exist
+MariaDB [testeDDL_110]> SELECT Id_Cliente, Nome, Sobrenome, DataNasc, TIMESTAMDIFF(YEAR, DataNasc, CURDATE()) as idade from cliente;
+ERROR 1305 (42000): FUNCTION testeddl_110.TIMESTAMDIFF does not exist
+MariaDB [testeDDL_110]> SELECT Id_Cliente, Nome, Sobrenome, DataNasc, FLOOR (DATEDIFF(CURDATE(),DataNasc)/365 ) as idade from cliente;
++------------+----------+-----------+------------+-------+
+| Id_Cliente | Nome     | Sobrenome | DataNasc   | idade |
++------------+----------+-----------+------------+-------+
+|          1 | Leandro  | Sousa     | 2000-10-05 |    24 |
+|          2 | Karla    | NULL      | 2001-04-25 |    23 |
+|          3 | Leonardo | NULL      | 1987-03-18 |    37 |
+|          4 | Gustavo  | Machado   | 1993-08-01 |    31 |
++------------+----------+-----------+------------+-------+
+4 rows in set (0.002 sec)
+
+MariaDB [testeDDL_110]> SELECT Id_Cliente, Nome, Sobrenome, DataNasc, FLOOR (DATEDIFF(CURDATE(),DataNasc)/365 ) as idade from cliente where
+    -> Id_Cliente=1;
++------------+---------+-----------+------------+-------+
+| Id_Cliente | Nome    | Sobrenome | DataNasc   | idade |
++------------+---------+-----------+------------+-------+
+|          1 | Leandro | Sousa     | 2000-10-05 |    24 |
++------------+---------+-----------+------------+-------+
+1 row in set (0.000 sec)
+
+MariaDB [testeDDL_110]> SELECT Id_Cliente, Nome, Sobrenome, DataNasc, timestampdiff(YEAR, CURDATE(), datanasc) as idade from cliente where idcliente=1;
+ERROR 1054 (42S22): Unknown column 'idcliente' in 'where clause'
+MariaDB [testeDDL_110]> SELECT Id_Cliente, Nome, Sobrenome, DataNasc, timestampdiff(YEAR, CURDATE(), datanasc) as idade from cliente where id_cliente=1;
++------------+---------+-----------+------------+-------+
+| Id_Cliente | Nome    | Sobrenome | DataNasc   | idade |
++------------+---------+-----------+------------+-------+
+|          1 | Leandro | Sousa     | 2000-10-05 |   -24 |
++------------+---------+-----------+------------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [testeDDL_110]> SELECT Id_Cliente, Nome, Sobrenome, DataNasc, timestampdiff(YEAR, datanasc, CURDATE()) as idade from cliente where id_cliente=1;
++------------+---------+-----------+------------+-------+
+| Id_Cliente | Nome    | Sobrenome | DataNasc   | idade |
++------------+---------+-----------+------------+-------+
+|          1 | Leandro | Sousa     | 2000-10-05 |    24 |
++------------+---------+-----------+------------+-------+
+
+
+
+
+
