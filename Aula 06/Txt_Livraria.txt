@@ -432,6 +432,18 @@ MariaDB [livraria_110]> select autor, uf, sexo from livro where sexo="M" and uf=
 | Carlos Pereira | RJ | M    |
 +----------------+----+------+
 
+MariaDB [livraria_110]> select autor, sexo, uf from livro where sexo="M" and in ("SP, "RJ");
+    "> select autor, sexo, uf from livro where sexo="M" and in ("SP, "RJ");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'in ("SP, "RJ");
+select autor, sexo, uf from livro where sexo="M" and in ("SP,...' at line 1
+MariaDB [livraria_110]> select autor, sexo, uf from livro where sexo="M" and in ("SP", "RJ");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'in ("SP", "RJ")' at line 1
+MariaDB [livraria_110]> --mostrar todos os livros que forma publicados entre 2010 e 2020--
+MariaDB [livraria_110]> select idlivro, titulo, editora, autor, uf from livro where anopub="2010" and anopub="2021";
+Empty set (0.001 sec)
+
+MariaDB [livraria_110]> select idlivro, titulo, anobub from livro where anopub between 2010 and 2021;
+ERROR 1054 (42S22): Unknown column 'anobub' in 'field list'
 MariaDB [livraria_110]> select idlivro, titulo, anopub from livro where anopub between 2010 and 2021;
 +---------+---------------------------+--------+
 | idlivro | titulo                    | anopub |
@@ -537,6 +549,8 @@ MariaDB [livraria_110]> select idlivro, titulo, anopub from livro where anopub i
 +---------+------------------------+--------+
 15 rows in set (0.001 sec)
 
+MariaDB [livraria_110]> select idlivro, titulo, anopub from livro where anopub >=2020 anopub <=2022;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'anopub <=2022' at line 1
 MariaDB [livraria_110]> select idlivro, titulo, anopub from livro where anopub >=2020 and anopub <=2022;
 +---------+------------------------+--------+
 | idlivro | titulo                 | anopub |
@@ -559,6 +573,12 @@ MariaDB [livraria_110]> select idlivro, titulo, anopub from livro where anopub >
 +---------+------------------------+--------+
 15 rows in set (0.000 sec)
 
+MariaDB [livraria_110]> select idlivro=1, titulo, valor from livro where (valor=valor *5);
+Empty set (0.001 sec)
+
+MariaDB [livraria_110]> select idlivro=1, titulo, valor from livro where valor=valor *5;
+Empty set (0.000 sec)
+
 MariaDB [livraria_110]> SELECT idlivro, titulo, valor, (valor * 5) AS valor_total_venda
     -> FROM livro
     -> WHERE idlivro = 1;
@@ -569,6 +589,17 @@ MariaDB [livraria_110]> SELECT idlivro, titulo, valor, (valor * 5) AS valor_tota
 +---------+---------------+--------+-------------------+
 1 row in set (0.003 sec)
 
+MariaDB [livraria_110]> SELECT idlivro, titulo, quantidade, valor, (valor * 5) AS valor_total_venda
+    -> FROM livro
+    -> WHERE idlivro = 1;
+ERROR 1054 (42S22): Unknown column 'quantidade' in 'field list'
+MariaDB [livraria_110]> INSERT INTO livro (id, titulo, quantidade, editora, ano_publicacao, autor, estado, genero, preco)
+    ->
+    -> ,,
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ',' at line 3
+MariaDB [livraria_110]> insert into livro (id, titulo, editora, anopub, autor, uf, valor, quantidade) values (1, 'O gasparzinho', 'Senai', 2000, 'Jorge', 'DF', 109.35, 5);
+ERROR 1054 (42S22): Unknown column 'id' in 'field list'
 MariaDB [livraria_110]> select idlivro, titulo, valor, 5 as quantidade, (5 * valor) as valor_total_venda from livro where idlivro = 1;
 +---------+---------------+--------+------------+-------------------+
 | idlivro | titulo        | valor  | quantidade | valor_total_venda |
@@ -577,6 +608,70 @@ MariaDB [livraria_110]> select idlivro, titulo, valor, 5 as quantidade, (5 * val
 +---------+---------------+--------+------------+-------------------+
 1 row in set (0.000 sec)
 
+MariaDB [livraria_110]> select uf from livro;
++----+
+| uf |
++----+
+| DF |
+| SP |
+| RJ |
+| DF |
+| SP |
+| RJ |
+| MG |
+| BA |
+| PR |
+| RS |
+| SC |
+| ES |
+| GO |
+| DF |
+| MS |
+| TO |
+| AC |
+| RO |
+| AP |
+| RR |
+| SE |
+| PI |
+| MA |
+| CE |
+| PE |
+| PB |
+| PR |
+| RJ |
+| MG |
+| BA |
+| SP |
+| ES |
+| GO |
+| ES |
+| GO |
+| SP |
+| MG |
+| RJ |
+| BA |
+| RS |
+| SC |
+| ES |
+| PE |
+| CE |
+| PI |
+| ES |
+| GO |
+| SP |
+| MG |
+| RJ |
+| BA |
+| RS |
+| SC |
+| ES |
+| RJ |
++----+
+55 rows in set (0.000 sec)
+
+MariaDB [livraria_110]> select idlivro from livro count uf;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'uf' at line 1
 MariaDB [livraria_110]> select count(uf) as total_uf from livro;
 +----------+
 | total_uf |
@@ -592,3 +687,97 @@ MariaDB [livraria_110]> select count(distinct uf) as uf_distintas from livro;
 |           22 |
 +--------------+
 1 row in set (0.003 sec)
+
+MariaDB [livraria_110]> select * from livro;
++---------+---------------------------+--------+--------------------------+--------+-----------------+----+------+--------+
+| idlivro | titulo                    | numpag | editora                  | AnoPub | autor           | UF | sexo | valor  |
++---------+---------------------------+--------+--------------------------+--------+-----------------+----+------+--------+
+|       1 | O gasparzinho             |     55 | Senai                    |   2000 | Jorge           | DF | M    | 109.35 |
+|       2 | A jornada do heroi        |    320 | Editora Alfa             |   2018 | Joao Silva      | SP | M    |  39.90 |
+|       3 | Misterios da Noite        |    280 | Editora Beta             |   2019 | Maria Oliveira  | RJ | F    |  29.90 |
+|       4 | O Codigo Perdido          |    350 | Editora Gama             |   2020 | Carlos Souza    | DF | M    |  49.90 |
+|       5 | A Jornada do Her?i        |    320 | Global Editora           |   2018 | Jo?o Silva      | SP | M    |  39.90 |
+|       6 | Mist?rios da Noite        |    280 | Grupo Editorial Record   |   2019 | Maria Oliveira  | RJ | F    |  29.90 |
+|       7 | O C?digo Perdido          |    350 | Editora Moderna          |   2020 | Carlos Souza    | MG | M    |  49.90 |
+|       8 | Segredos do Passado       |    200 | Livraria do Conhecimento |   2017 | Ana Costa       | BA | F    |  19.90 |
+|       9 | Viagem ao Centro da Terra |    400 | Editora Ra?zes           |   2016 | Pedro Almeida   | PR | M    |  59.90 |
+|      10 | O ?ltimo Suspiro          |    220 | Global Editora           |   2021 | Laura Pereira   | RS | F    |  34.90 |
+|      11 | Entre Dois Mundos         |    310 | Grupo Editorial Record   |   2015 | Marcos Lima     | SC | M    |  44.90 |
+|      12 | A Revolu??o Silenciosa    |    260 | Editora Moderna          |   2018 | Fernanda Rocha  | ES | F    |  24.90 |
+|      13 | Ecos do Futuro            |    330 | Livraria do Conhecimento |   2019 | Gustavo Santos  | GO | M    |  54.90 |
+|      14 | O Enigma da Lua           |    180 | Editora Ra?zes           |   2020 | Beatriz Martins | DF | F    |  14.90 |
+|      15 | A ?ltima Estrela          |    300 | Global Editora           |   2017 | Ricardo Pereira | MS | M    |  39.90 |
+|      16 | Sombras do Amanh?         |    210 | Grupo Editorial Record   |   2016 | Tatiane Costa   | TO | F    |  29.90 |
+|      17 | O Despertar dos Deuses    |    370 | Editora Moderna          |   2021 | Felipe Rocha    | AC | M    |  49.90 |
+|      18 | Cora??es Partidos         |    230 | Livraria do Conhecimento |   2018 | Juliana Almeida | RO | F    |  19.90 |
+|      19 | A Cidade Escondida        |    320 | Editora Ra?zes           |   2019 | Leonardo Silva  | AP | M    |  39.90 |
+|      20 | O Labirinto das Almas     |    280 | Global Editora           |   2020 | Mariana Costa   | RR | F    |  29.90 |
+|      21 | Sob o C?u de Diamantes    |    360 | Grupo Editorial Record   |   2017 | Eduardo Lima    | SE | M    |  49.90 |
+|      22 | A Can??o do Vento         |    250 | Editora Moderna          |   2018 | Patricia Souza  | PI | F    |  24.90 |
+|      23 | O ?ltimo Guerreiro        |    300 | Livraria do Conhecimento |   2019 | Daniel Pereira  | MA | M    |  39.90 |
+|      24 | Fragmentos de um Sonho    |    220 | Editora Ra?zes           |   2020 | Fernanda Lima   | CE | F    |  34.90 |
+|      25 | A Lenda do Drag?o         |    350 | Global Editora           |   2017 | Gustavo Almeida | PE | M    |  49.90 |
+|      26 | O Sussurro das Estrelas   |    280 | Grupo Editorial Record   |   2018 | Larissa Rocha   | PB | F    |  29.90 |
+|      27 | O Caminho das Sombras     |    310 | Editora Moderna          |   2019 | Thiago Costa    | PR | M    |  44.90 |
+|      28 | A Melodia do Sil?ncio     |    200 | Livraria do Conhecimento |   2020 | Vanessa Martins | RJ | F    |  19.90 |
+|      29 | O Segredo da Floresta     |    330 | Editora Ra?zes           |   2017 | Felipe Souza    | MG | M    |  54.90 |
+|      30 | Cores do Crep?sculo       |    240 | Global Editora           |   2018 | Roberta Lima    | BA | F    |  24.90 |
+|      31 | Al?m do Horizonte         |    310 | Grupo Editorial Record   |   2019 | Andr? Costa     | SP | M    |  44.90 |
+|      32 | O ?ltimo Poema            |    220 | Editora Moderna          |   2020 | Simone Pereira  | ES | F    |  34.90 |
+|      33 | A Chave do Destino        |    350 | Livraria do Conhecimento |   2017 | Ricardo Almeida | GO | M    |  49.90 |
+|      34 | O ?ltimo Poema            |    220 | Editora Ra?zes           |   2020 | Simone Pereira  | ES | F    |  34.90 |
+|      35 | A Chave do Destino        |    350 | Global Editora           |   2017 | Ricardo Almeida | GO | M    |  49.90 |
+|      36 | Sob a Luz da Lua          |    280 | Grupo Editorial Record   |   2018 | Tatiane Souza   | SP | F    |  29.90 |
+|      37 | O Guardi?o do Tempo       |    300 | Editora Moderna          |   2019 | Felipe Costa    | MG | M    |  39.90 |
+|      38 | Fragmentos de um Sonho    |    220 | Livraria do Conhecimento |   2020 | Juliana Lima    | RJ | F    |  34.90 |
+|      39 | A Lenda do Drag?o         |    350 | Editora Ra?zes           |   2017 | Eduardo Pereira | BA | M    |  49.90 |
+|      40 | O Sussurro das Estrelas   |    280 | Global Editora           |   2018 | Mariana Rocha   | RS | F    |  29.90 |
+|      41 | O Caminho das Sombras     |    310 | Grupo Editorial Record   |   2019 | Thiago Almeida  | SC | M    |  44.90 |
+|      42 | A Melodia do Sil?ncio     |    200 | Editora Moderna          |   2020 | Vanessa Costa   | ES | F    |  19.90 |
+|      43 | O Segredo da Floresta     |    330 | Livraria do Conhecimento |   2017 | Felipe Souza    | PE | M    |  54.90 |
+|      44 | Cores do Crep?sculo       |    240 | Editora Ra?zes           |   2018 | Roberta Lima    | CE | F    |  24.90 |
+|      45 | Al?m do Horizonte         |    310 | Global Editora           |   2019 | Andr? Costa     | PI | M    |  44.90 |
+|      46 | O ?ltimo Poema            |    220 | Grupo Editorial Record   |   2020 | Simone Pereira  | ES | F    |  34.90 |
+|      47 | A Chave do Destino        |    350 | Editora Moderna          |   2017 | Ricardo Almeida | GO | M    |  49.90 |
+|      48 | Sob a Luz da Lua          |    280 | Livraria do Conhecimento |   2018 | Tatiane Souza   | SP | F    |  29.90 |
+|      49 | O Guardi?o do Tempo       |    300 | Editora Ra?zes           |   2019 | Felipe Costa    | MG | M    |  39.90 |
+|      50 | Fragmentos de um Sonho    |    220 | Global Editora           |   2020 | Juliana Lima    | RJ | F    |  34.90 |
+|      51 | A Lenda do Drag?o         |    350 | Grupo Editorial Record   |   2017 | Eduardo Pereira | BA | M    |  49.90 |
+|      52 | O Sussurro das Estrelas   |    280 | Editora Moderna          |   2018 | Mariana Rocha   | RS | F    |  29.90 |
+|      53 | O Caminho das Sombras     |    310 | Livraria do Conhecimento |   2019 | Thiago Almeida  | SC | M    |  44.90 |
+|      54 | A Melodia do Sil?ncio     |    200 | Editora Ra?zes           |   2020 | Vanessa Costa   | ES | F    |  19.90 |
+|      55 | Sombras da Noite          |    280 | Beta Livros              |   2019 | Carlos Pereira  | RJ | M    |  29.90 |
++---------+---------------------------+--------+--------------------------+--------+-----------------+----+------+--------+
+55 rows in set (0.000 sec)
+
+MariaDB [livraria_110]> select uf_distintas, total_uf from livro;
+ERROR 1054 (42S22): Unknown column 'uf_distintas' in 'field list'
+MariaDB [livraria_110]> select uf, count(uf) as quantidade from livro group by uf order by quantidade ASC;
++----+------------+
+| uf | quantidade |
++----+------------+
+| RO |          1 |
+| AP |          1 |
+| RR |          1 |
+| SE |          1 |
+| MA |          1 |
+| MS |          1 |
+| PB |          1 |
+| TO |          1 |
+| AC |          1 |
+| PR |          2 |
+| PI |          2 |
+| CE |          2 |
+| PE |          2 |
+| RS |          3 |
+| SC |          3 |
+| DF |          3 |
+| MG |          4 |
+| BA |          4 |
+| GO |          4 |
+| SP |          5 |
+| RJ |          6 |
+| ES |          6 |
++----+------------+
+22 rows in set (0.002 sec)
+
