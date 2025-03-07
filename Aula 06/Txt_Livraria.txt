@@ -1,0 +1,570 @@
+
+ALUNO@LAB-F07-12 c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.19-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++-------------------------------------+
+| Database                            |
++-------------------------------------+
+| #mysql50#livraria - Copia           |
+| #mysql50#mysql - Copia              |
+| #mysql50#nome_qualquer - Copia      |
+| #mysql50#performance_schema - Copia |
+| #mysql50#phpmyadmin - Copia         |
+| #mysql50#test - Copia               |
+| #mysql50#teste - Copia              |
+| #mysql50#venda - Copia              |
+| cliente2                            |
+| cliente_109                         |
+| escola_109                          |
+| escola_novo                         |
+| funcionario                         |
+| funcionario_novo                    |
+| hospital                            |
+| informatica_109                     |
+| information_schema                  |
+| livraria_109                        |
+| livraria_110                        |
+| mydb                                |
+| mysql                               |
+| performance_schema                  |
+| projetooficina                      |
+| teste1                              |
+| testeddl_110                        |
++-------------------------------------+
+25 rows in set (0.045 sec)
+
+MariaDB [(none)]> use livraria_110;
+Database changed
+MariaDB [livraria_110]> desc livro;
++---------+---------------+------+-----+---------+----------------+
+| Field   | Type          | Null | Key | Default | Extra          |
++---------+---------------+------+-----+---------+----------------+
+| idlivro | int(11)       | NO   | PRI | NULL    | auto_increment |
+| titulo  | varchar(50)   | NO   |     | NULL    |                |
+| numpag  | int(11)       | NO   |     | NULL    |                |
+| editora | varchar(50)   | NO   |     | NULL    |                |
+| AnoPub  | year(4)       | NO   |     | NULL    |                |
+| autor   | varchar(50)   | NO   |     | NULL    |                |
+| UF      | char(2)       | NO   |     | NULL    |                |
+| sexo    | enum('M','F') | NO   |     | NULL    |                |
+| valor   | float(5,2)    | NO   |     | NULL    |                |
++---------+---------------+------+-----+---------+----------------+
+9 rows in set (0.011 sec)
+
+MariaDB [livraria_110]> select * from livro;
++---------+---------------------------+--------+--------------------------+--------+-----------------+----+------+--------+
+| idlivro | titulo                    | numpag | editora                  | AnoPub | autor           | UF | sexo | valor  |
++---------+---------------------------+--------+--------------------------+--------+-----------------+----+------+--------+
+|       1 | O gasparzinho             |     55 | Senai                    |   2000 | Jorge           | DF | M    | 109.35 |
+|       2 | A jornada do heroi        |    320 | Editora Alfa             |   2018 | Joao Silva      | SP | M    |  39.90 |
+|       3 | Misterios da Noite        |    280 | Editora Beta             |   2019 | Maria Oliveira  | RJ | F    |  29.90 |
+|       4 | O Codigo Perdido          |    350 | Editora Gama             |   2020 | Carlos Souza    | DF | M    |  49.90 |
+|       5 | A Jornada do Her?i        |    320 | Global Editora           |   2018 | Jo?o Silva      | SP | M    |  39.90 |
+|       6 | Mist?rios da Noite        |    280 | Grupo Editorial Record   |   2019 | Maria Oliveira  | RJ | F    |  29.90 |
+|       7 | O C?digo Perdido          |    350 | Editora Moderna          |   2020 | Carlos Souza    | MG | M    |  49.90 |
+|       8 | Segredos do Passado       |    200 | Livraria do Conhecimento |   2017 | Ana Costa       | BA | F    |  19.90 |
+|       9 | Viagem ao Centro da Terra |    400 | Editora Ra?zes           |   2016 | Pedro Almeida   | PR | M    |  59.90 |
+|      10 | O ?ltimo Suspiro          |    220 | Global Editora           |   2021 | Laura Pereira   | RS | F    |  34.90 |
+|      11 | Entre Dois Mundos         |    310 | Grupo Editorial Record   |   2015 | Marcos Lima     | SC | M    |  44.90 |
+|      12 | A Revolu??o Silenciosa    |    260 | Editora Moderna          |   2018 | Fernanda Rocha  | ES | F    |  24.90 |
+|      13 | Ecos do Futuro            |    330 | Livraria do Conhecimento |   2019 | Gustavo Santos  | GO | M    |  54.90 |
+|      14 | O Enigma da Lua           |    180 | Editora Ra?zes           |   2020 | Beatriz Martins | DF | F    |  14.90 |
+|      15 | A ?ltima Estrela          |    300 | Global Editora           |   2017 | Ricardo Pereira | MS | M    |  39.90 |
+|      16 | Sombras do Amanh?         |    210 | Grupo Editorial Record   |   2016 | Tatiane Costa   | TO | F    |  29.90 |
+|      17 | O Despertar dos Deuses    |    370 | Editora Moderna          |   2021 | Felipe Rocha    | AC | M    |  49.90 |
+|      18 | Cora??es Partidos         |    230 | Livraria do Conhecimento |   2018 | Juliana Almeida | RO | F    |  19.90 |
+|      19 | A Cidade Escondida        |    320 | Editora Ra?zes           |   2019 | Leonardo Silva  | AP | M    |  39.90 |
+|      20 | O Labirinto das Almas     |    280 | Global Editora           |   2020 | Mariana Costa   | RR | F    |  29.90 |
+|      21 | Sob o C?u de Diamantes    |    360 | Grupo Editorial Record   |   2017 | Eduardo Lima    | SE | M    |  49.90 |
+|      22 | A Can??o do Vento         |    250 | Editora Moderna          |   2018 | Patricia Souza  | PI | F    |  24.90 |
+|      23 | O ?ltimo Guerreiro        |    300 | Livraria do Conhecimento |   2019 | Daniel Pereira  | MA | M    |  39.90 |
+|      24 | Fragmentos de um Sonho    |    220 | Editora Ra?zes           |   2020 | Fernanda Lima   | CE | F    |  34.90 |
+|      25 | A Lenda do Drag?o         |    350 | Global Editora           |   2017 | Gustavo Almeida | PE | M    |  49.90 |
+|      26 | O Sussurro das Estrelas   |    280 | Grupo Editorial Record   |   2018 | Larissa Rocha   | PB | F    |  29.90 |
+|      27 | O Caminho das Sombras     |    310 | Editora Moderna          |   2019 | Thiago Costa    | PR | M    |  44.90 |
+|      28 | A Melodia do Sil?ncio     |    200 | Livraria do Conhecimento |   2020 | Vanessa Martins | RJ | F    |  19.90 |
+|      29 | O Segredo da Floresta     |    330 | Editora Ra?zes           |   2017 | Felipe Souza    | MG | M    |  54.90 |
+|      30 | Cores do Crep?sculo       |    240 | Global Editora           |   2018 | Roberta Lima    | BA | F    |  24.90 |
+|      31 | Al?m do Horizonte         |    310 | Grupo Editorial Record   |   2019 | Andr? Costa     | SP | M    |  44.90 |
+|      32 | O ?ltimo Poema            |    220 | Editora Moderna          |   2020 | Simone Pereira  | ES | F    |  34.90 |
+|      33 | A Chave do Destino        |    350 | Livraria do Conhecimento |   2017 | Ricardo Almeida | GO | M    |  49.90 |
+|      34 | O ?ltimo Poema            |    220 | Editora Ra?zes           |   2020 | Simone Pereira  | ES | F    |  34.90 |
+|      35 | A Chave do Destino        |    350 | Global Editora           |   2017 | Ricardo Almeida | GO | M    |  49.90 |
+|      36 | Sob a Luz da Lua          |    280 | Grupo Editorial Record   |   2018 | Tatiane Souza   | SP | F    |  29.90 |
+|      37 | O Guardi?o do Tempo       |    300 | Editora Moderna          |   2019 | Felipe Costa    | MG | M    |  39.90 |
+|      38 | Fragmentos de um Sonho    |    220 | Livraria do Conhecimento |   2020 | Juliana Lima    | RJ | F    |  34.90 |
+|      39 | A Lenda do Drag?o         |    350 | Editora Ra?zes           |   2017 | Eduardo Pereira | BA | M    |  49.90 |
+|      40 | O Sussurro das Estrelas   |    280 | Global Editora           |   2018 | Mariana Rocha   | RS | F    |  29.90 |
+|      41 | O Caminho das Sombras     |    310 | Grupo Editorial Record   |   2019 | Thiago Almeida  | SC | M    |  44.90 |
+|      42 | A Melodia do Sil?ncio     |    200 | Editora Moderna          |   2020 | Vanessa Costa   | ES | F    |  19.90 |
+|      43 | O Segredo da Floresta     |    330 | Livraria do Conhecimento |   2017 | Felipe Souza    | PE | M    |  54.90 |
+|      44 | Cores do Crep?sculo       |    240 | Editora Ra?zes           |   2018 | Roberta Lima    | CE | F    |  24.90 |
+|      45 | Al?m do Horizonte         |    310 | Global Editora           |   2019 | Andr? Costa     | PI | M    |  44.90 |
+|      46 | O ?ltimo Poema            |    220 | Grupo Editorial Record   |   2020 | Simone Pereira  | ES | F    |  34.90 |
+|      47 | A Chave do Destino        |    350 | Editora Moderna          |   2017 | Ricardo Almeida | GO | M    |  49.90 |
+|      48 | Sob a Luz da Lua          |    280 | Livraria do Conhecimento |   2018 | Tatiane Souza   | SP | F    |  29.90 |
+|      49 | O Guardi?o do Tempo       |    300 | Editora Ra?zes           |   2019 | Felipe Costa    | MG | M    |  39.90 |
+|      50 | Fragmentos de um Sonho    |    220 | Global Editora           |   2020 | Juliana Lima    | RJ | F    |  34.90 |
+|      51 | A Lenda do Drag?o         |    350 | Grupo Editorial Record   |   2017 | Eduardo Pereira | BA | M    |  49.90 |
+|      52 | O Sussurro das Estrelas   |    280 | Editora Moderna          |   2018 | Mariana Rocha   | RS | F    |  29.90 |
+|      53 | O Caminho das Sombras     |    310 | Livraria do Conhecimento |   2019 | Thiago Almeida  | SC | M    |  44.90 |
+|      54 | A Melodia do Sil?ncio     |    200 | Editora Ra?zes           |   2020 | Vanessa Costa   | ES | F    |  19.90 |
++---------+---------------------------+--------+--------------------------+--------+-----------------+----+------+--------+
+54 rows in set (0.026 sec)
+
+MariaDB [livraria_110]> select nome, editora from livro;
+ERROR 1054 (42S22): Unknown column 'nome' in 'field list'
+MariaDB [livraria_110]> select idlivro, titulo, editora from livro;
++---------+---------------------------+--------------------------+
+| idlivro | titulo                    | editora                  |
++---------+---------------------------+--------------------------+
+|       1 | O gasparzinho             | Senai                    |
+|       2 | A jornada do heroi        | Editora Alfa             |
+|       3 | Misterios da Noite        | Editora Beta             |
+|       4 | O Codigo Perdido          | Editora Gama             |
+|       5 | A Jornada do Her?i        | Global Editora           |
+|       6 | Mist?rios da Noite        | Grupo Editorial Record   |
+|       7 | O C?digo Perdido          | Editora Moderna          |
+|       8 | Segredos do Passado       | Livraria do Conhecimento |
+|       9 | Viagem ao Centro da Terra | Editora Ra?zes           |
+|      10 | O ?ltimo Suspiro          | Global Editora           |
+|      11 | Entre Dois Mundos         | Grupo Editorial Record   |
+|      12 | A Revolu??o Silenciosa    | Editora Moderna          |
+|      13 | Ecos do Futuro            | Livraria do Conhecimento |
+|      14 | O Enigma da Lua           | Editora Ra?zes           |
+|      15 | A ?ltima Estrela          | Global Editora           |
+|      16 | Sombras do Amanh?         | Grupo Editorial Record   |
+|      17 | O Despertar dos Deuses    | Editora Moderna          |
+|      18 | Cora??es Partidos         | Livraria do Conhecimento |
+|      19 | A Cidade Escondida        | Editora Ra?zes           |
+|      20 | O Labirinto das Almas     | Global Editora           |
+|      21 | Sob o C?u de Diamantes    | Grupo Editorial Record   |
+|      22 | A Can??o do Vento         | Editora Moderna          |
+|      23 | O ?ltimo Guerreiro        | Livraria do Conhecimento |
+|      24 | Fragmentos de um Sonho    | Editora Ra?zes           |
+|      25 | A Lenda do Drag?o         | Global Editora           |
+|      26 | O Sussurro das Estrelas   | Grupo Editorial Record   |
+|      27 | O Caminho das Sombras     | Editora Moderna          |
+|      28 | A Melodia do Sil?ncio     | Livraria do Conhecimento |
+|      29 | O Segredo da Floresta     | Editora Ra?zes           |
+|      30 | Cores do Crep?sculo       | Global Editora           |
+|      31 | Al?m do Horizonte         | Grupo Editorial Record   |
+|      32 | O ?ltimo Poema            | Editora Moderna          |
+|      33 | A Chave do Destino        | Livraria do Conhecimento |
+|      34 | O ?ltimo Poema            | Editora Ra?zes           |
+|      35 | A Chave do Destino        | Global Editora           |
+|      36 | Sob a Luz da Lua          | Grupo Editorial Record   |
+|      37 | O Guardi?o do Tempo       | Editora Moderna          |
+|      38 | Fragmentos de um Sonho    | Livraria do Conhecimento |
+|      39 | A Lenda do Drag?o         | Editora Ra?zes           |
+|      40 | O Sussurro das Estrelas   | Global Editora           |
+|      41 | O Caminho das Sombras     | Grupo Editorial Record   |
+|      42 | A Melodia do Sil?ncio     | Editora Moderna          |
+|      43 | O Segredo da Floresta     | Livraria do Conhecimento |
+|      44 | Cores do Crep?sculo       | Editora Ra?zes           |
+|      45 | Al?m do Horizonte         | Global Editora           |
+|      46 | O ?ltimo Poema            | Grupo Editorial Record   |
+|      47 | A Chave do Destino        | Editora Moderna          |
+|      48 | Sob a Luz da Lua          | Livraria do Conhecimento |
+|      49 | O Guardi?o do Tempo       | Editora Ra?zes           |
+|      50 | Fragmentos de um Sonho    | Global Editora           |
+|      51 | A Lenda do Drag?o         | Grupo Editorial Record   |
+|      52 | O Sussurro das Estrelas   | Editora Moderna          |
+|      53 | O Caminho das Sombras     | Livraria do Conhecimento |
+|      54 | A Melodia do Sil?ncio     | Editora Ra?zes           |
++---------+---------------------------+--------------------------+
+54 rows in set (0.000 sec)
+
+MariaDB [livraria_110]> select idlivro, titulo, uf from livro where sexo="M";
++---------+---------------------------+----+
+| idlivro | titulo                    | uf |
++---------+---------------------------+----+
+|       1 | O gasparzinho             | DF |
+|       2 | A jornada do heroi        | SP |
+|       4 | O Codigo Perdido          | DF |
+|       5 | A Jornada do Her?i        | SP |
+|       7 | O C?digo Perdido          | MG |
+|       9 | Viagem ao Centro da Terra | PR |
+|      11 | Entre Dois Mundos         | SC |
+|      13 | Ecos do Futuro            | GO |
+|      15 | A ?ltima Estrela          | MS |
+|      17 | O Despertar dos Deuses    | AC |
+|      19 | A Cidade Escondida        | AP |
+|      21 | Sob o C?u de Diamantes    | SE |
+|      23 | O ?ltimo Guerreiro        | MA |
+|      25 | A Lenda do Drag?o         | PE |
+|      27 | O Caminho das Sombras     | PR |
+|      29 | O Segredo da Floresta     | MG |
+|      31 | Al?m do Horizonte         | SP |
+|      33 | A Chave do Destino        | GO |
+|      35 | A Chave do Destino        | GO |
+|      37 | O Guardi?o do Tempo       | MG |
+|      39 | A Lenda do Drag?o         | BA |
+|      41 | O Caminho das Sombras     | SC |
+|      43 | O Segredo da Floresta     | PE |
+|      45 | Al?m do Horizonte         | PI |
+|      47 | A Chave do Destino        | GO |
+|      49 | O Guardi?o do Tempo       | MG |
+|      51 | A Lenda do Drag?o         | BA |
+|      53 | O Caminho das Sombras     | SC |
++---------+---------------------------+----+
+28 rows in set (0.002 sec)
+
+MariaDB [livraria_110]> select idlivro, titulo, uf, sexo from livro where sexo="M";
++---------+---------------------------+----+------+
+| idlivro | titulo                    | uf | sexo |
++---------+---------------------------+----+------+
+|       1 | O gasparzinho             | DF | M    |
+|       2 | A jornada do heroi        | SP | M    |
+|       4 | O Codigo Perdido          | DF | M    |
+|       5 | A Jornada do Her?i        | SP | M    |
+|       7 | O C?digo Perdido          | MG | M    |
+|       9 | Viagem ao Centro da Terra | PR | M    |
+|      11 | Entre Dois Mundos         | SC | M    |
+|      13 | Ecos do Futuro            | GO | M    |
+|      15 | A ?ltima Estrela          | MS | M    |
+|      17 | O Despertar dos Deuses    | AC | M    |
+|      19 | A Cidade Escondida        | AP | M    |
+|      21 | Sob o C?u de Diamantes    | SE | M    |
+|      23 | O ?ltimo Guerreiro        | MA | M    |
+|      25 | A Lenda do Drag?o         | PE | M    |
+|      27 | O Caminho das Sombras     | PR | M    |
+|      29 | O Segredo da Floresta     | MG | M    |
+|      31 | Al?m do Horizonte         | SP | M    |
+|      33 | A Chave do Destino        | GO | M    |
+|      35 | A Chave do Destino        | GO | M    |
+|      37 | O Guardi?o do Tempo       | MG | M    |
+|      39 | A Lenda do Drag?o         | BA | M    |
+|      41 | O Caminho das Sombras     | SC | M    |
+|      43 | O Segredo da Floresta     | PE | M    |
+|      45 | Al?m do Horizonte         | PI | M    |
+|      47 | A Chave do Destino        | GO | M    |
+|      49 | O Guardi?o do Tempo       | MG | M    |
+|      51 | A Lenda do Drag?o         | BA | M    |
+|      53 | O Caminho das Sombras     | SC | M    |
++---------+---------------------------+----+------+
+28 rows in set (0.000 sec)
+
+MariaDB [livraria_110]> select idlivro, titulo, numpag, sexo from livro where sexo="F";
++---------+-------------------------+--------+------+
+| idlivro | titulo                  | numpag | sexo |
++---------+-------------------------+--------+------+
+|       3 | Misterios da Noite      |    280 | F    |
+|       6 | Mist?rios da Noite      |    280 | F    |
+|       8 | Segredos do Passado     |    200 | F    |
+|      10 | O ?ltimo Suspiro        |    220 | F    |
+|      12 | A Revolu??o Silenciosa  |    260 | F    |
+|      14 | O Enigma da Lua         |    180 | F    |
+|      16 | Sombras do Amanh?       |    210 | F    |
+|      18 | Cora??es Partidos       |    230 | F    |
+|      20 | O Labirinto das Almas   |    280 | F    |
+|      22 | A Can??o do Vento       |    250 | F    |
+|      24 | Fragmentos de um Sonho  |    220 | F    |
+|      26 | O Sussurro das Estrelas |    280 | F    |
+|      28 | A Melodia do Sil?ncio   |    200 | F    |
+|      30 | Cores do Crep?sculo     |    240 | F    |
+|      32 | O ?ltimo Poema          |    220 | F    |
+|      34 | O ?ltimo Poema          |    220 | F    |
+|      36 | Sob a Luz da Lua        |    280 | F    |
+|      38 | Fragmentos de um Sonho  |    220 | F    |
+|      40 | O Sussurro das Estrelas |    280 | F    |
+|      42 | A Melodia do Sil?ncio   |    200 | F    |
+|      44 | Cores do Crep?sculo     |    240 | F    |
+|      46 | O ?ltimo Poema          |    220 | F    |
+|      48 | Sob a Luz da Lua        |    280 | F    |
+|      50 | Fragmentos de um Sonho  |    220 | F    |
+|      52 | O Sussurro das Estrelas |    280 | F    |
+|      54 | A Melodia do Sil?ncio   |    200 | F    |
++---------+-------------------------+--------+------+
+26 rows in set (0.000 sec)
+
+MariaDB [livraria_110]> select idlivro, titulo, editora, valor from livro where uf="SP";
++---------+--------------------+--------------------------+-------+
+| idlivro | titulo             | editora                  | valor |
++---------+--------------------+--------------------------+-------+
+|       2 | A jornada do heroi | Editora Alfa             | 39.90 |
+|       5 | A Jornada do Her?i | Global Editora           | 39.90 |
+|      31 | Al?m do Horizonte  | Grupo Editorial Record   | 44.90 |
+|      36 | Sob a Luz da Lua   | Grupo Editorial Record   | 29.90 |
+|      48 | Sob a Luz da Lua   | Livraria do Conhecimento | 29.90 |
++---------+--------------------+--------------------------+-------+
+5 rows in set (0.000 sec)
+
+MariaDB [livraria_110]> select idlivro, titulo, editora, uf, valor from livro where uf="SP";
++---------+--------------------+--------------------------+----+-------+
+| idlivro | titulo             | editora                  | uf | valor |
++---------+--------------------+--------------------------+----+-------+
+|       2 | A jornada do heroi | Editora Alfa             | SP | 39.90 |
+|       5 | A Jornada do Her?i | Global Editora           | SP | 39.90 |
+|      31 | Al?m do Horizonte  | Grupo Editorial Record   | SP | 44.90 |
+|      36 | Sob a Luz da Lua   | Grupo Editorial Record   | SP | 29.90 |
+|      48 | Sob a Luz da Lua   | Livraria do Conhecimento | SP | 29.90 |
++---------+--------------------+--------------------------+----+-------+
+5 rows in set (0.000 sec)
+
+MariaDB [livraria_110]> select titulo, anopub from livro;
++---------------------------+--------+
+| titulo                    | anopub |
++---------------------------+--------+
+| O gasparzinho             |   2000 |
+| A jornada do heroi        |   2018 |
+| Misterios da Noite        |   2019 |
+| O Codigo Perdido          |   2020 |
+| A Jornada do Her?i        |   2018 |
+| Mist?rios da Noite        |   2019 |
+| O C?digo Perdido          |   2020 |
+| Segredos do Passado       |   2017 |
+| Viagem ao Centro da Terra |   2016 |
+| O ?ltimo Suspiro          |   2021 |
+| Entre Dois Mundos         |   2015 |
+| A Revolu??o Silenciosa    |   2018 |
+| Ecos do Futuro            |   2019 |
+| O Enigma da Lua           |   2020 |
+| A ?ltima Estrela          |   2017 |
+| Sombras do Amanh?         |   2016 |
+| O Despertar dos Deuses    |   2021 |
+| Cora??es Partidos         |   2018 |
+| A Cidade Escondida        |   2019 |
+| O Labirinto das Almas     |   2020 |
+| Sob o C?u de Diamantes    |   2017 |
+| A Can??o do Vento         |   2018 |
+| O ?ltimo Guerreiro        |   2019 |
+| Fragmentos de um Sonho    |   2020 |
+| A Lenda do Drag?o         |   2017 |
+| O Sussurro das Estrelas   |   2018 |
+| O Caminho das Sombras     |   2019 |
+| A Melodia do Sil?ncio     |   2020 |
+| O Segredo da Floresta     |   2017 |
+| Cores do Crep?sculo       |   2018 |
+| Al?m do Horizonte         |   2019 |
+| O ?ltimo Poema            |   2020 |
+| A Chave do Destino        |   2017 |
+| O ?ltimo Poema            |   2020 |
+| A Chave do Destino        |   2017 |
+| Sob a Luz da Lua          |   2018 |
+| O Guardi?o do Tempo       |   2019 |
+| Fragmentos de um Sonho    |   2020 |
+| A Lenda do Drag?o         |   2017 |
+| O Sussurro das Estrelas   |   2018 |
+| O Caminho das Sombras     |   2019 |
+| A Melodia do Sil?ncio     |   2020 |
+| O Segredo da Floresta     |   2017 |
+| Cores do Crep?sculo       |   2018 |
+| Al?m do Horizonte         |   2019 |
+| O ?ltimo Poema            |   2020 |
+| A Chave do Destino        |   2017 |
+| Sob a Luz da Lua          |   2018 |
+| O Guardi?o do Tempo       |   2019 |
+| Fragmentos de um Sonho    |   2020 |
+| A Lenda do Drag?o         |   2017 |
+| O Sussurro das Estrelas   |   2018 |
+| O Caminho das Sombras     |   2019 |
+| A Melodia do Sil?ncio     |   2020 |
++---------------------------+--------+
+54 rows in set (0.000 sec)
+
+MariaDB [livraria_110]> select autor, uf, sexo from livro where uf="SP" or uf="RJ" and sexo="M";
++---------------+----+------+
+| autor         | uf | sexo |
++---------------+----+------+
+| Joao Silva    | SP | M    |
+| Jo?o Silva    | SP | M    |
+| Andr? Costa   | SP | M    |
+| Tatiane Souza | SP | F    |
+| Tatiane Souza | SP | F    |
++---------------+----+------+
+5 rows in set (0.001 sec)
+
+MariaDB [livraria_110]> select autor, uf, sexo from livro where (uf="SP" or uf="RJ") and sexo="M";
++-------------+----+------+
+| autor       | uf | sexo |
++-------------+----+------+
+| Joao Silva  | SP | M    |
+| Jo?o Silva  | SP | M    |
+| Andr? Costa | SP | M    |
++-------------+----+------+
+3 rows in set (0.001 sec)
+
+MariaDB [livraria_110]> select autor, uf, sexo from livro where (uf="RJ" or uf="SP") and sexo="M";
++-------------+----+------+
+| autor       | uf | sexo |
++-------------+----+------+
+| Joao Silva  | SP | M    |
+| Jo?o Silva  | SP | M    |
+| Andr? Costa | SP | M    |
++-------------+----+------+
+3 rows in set (0.000 sec)
+
+MariaDB [livraria_110]> select * from livro where uf="RJ" and sexo="M";
+Empty set (0.001 sec)
+
+MariaDB [livraria_110]> insert into livro(idlivro, titulo, numpag, editora,Anopub,autor,UF,sexo,valor) values (null, 'Sombras da Noite', 280, 'Beta Livros', 2019, 'Carlos Pereira', 'RJ', 'M', 29.90);
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [livraria_110]> select autor, uf, sexo from livro where (uf="RJ" or uf="SP") and sexo="M";
++----------------+----+------+
+| autor          | uf | sexo |
++----------------+----+------+
+| Joao Silva     | SP | M    |
+| Jo?o Silva     | SP | M    |
+| Andr? Costa    | SP | M    |
+| Carlos Pereira | RJ | M    |
++----------------+----+------+
+4 rows in set (0.000 sec)
+
+
+MariaDB [livraria_110]> select autor, uf, sexo from livro where sexo="M" and uf="SP" or sexo="M" and uf="RJ";
++----------------+----+------+
+| autor          | uf | sexo |
++----------------+----+------+
+| Joao Silva     | SP | M    |
+| Jo?o Silva     | SP | M    |
+| Andr? Costa    | SP | M    |
+| Carlos Pereira | RJ | M    |
++----------------+----+------+
+
+MariaDB [livraria_110]> select idlivro, titulo, anopub from livro where anopub between 2010 and 2021;
++---------+---------------------------+--------+
+| idlivro | titulo                    | anopub |
++---------+---------------------------+--------+
+|       2 | A jornada do heroi        |   2018 |
+|       3 | Misterios da Noite        |   2019 |
+|       4 | O Codigo Perdido          |   2020 |
+|       5 | A Jornada do Her?i        |   2018 |
+|       6 | Mist?rios da Noite        |   2019 |
+|       7 | O C?digo Perdido          |   2020 |
+|       8 | Segredos do Passado       |   2017 |
+|       9 | Viagem ao Centro da Terra |   2016 |
+|      10 | O ?ltimo Suspiro          |   2021 |
+|      11 | Entre Dois Mundos         |   2015 |
+|      12 | A Revolu??o Silenciosa    |   2018 |
+|      13 | Ecos do Futuro            |   2019 |
+|      14 | O Enigma da Lua           |   2020 |
+|      15 | A ?ltima Estrela          |   2017 |
+|      16 | Sombras do Amanh?         |   2016 |
+|      17 | O Despertar dos Deuses    |   2021 |
+|      18 | Cora??es Partidos         |   2018 |
+|      19 | A Cidade Escondida        |   2019 |
+|      20 | O Labirinto das Almas     |   2020 |
+|      21 | Sob o C?u de Diamantes    |   2017 |
+|      22 | A Can??o do Vento         |   2018 |
+|      23 | O ?ltimo Guerreiro        |   2019 |
+|      24 | Fragmentos de um Sonho    |   2020 |
+|      25 | A Lenda do Drag?o         |   2017 |
+|      26 | O Sussurro das Estrelas   |   2018 |
+|      27 | O Caminho das Sombras     |   2019 |
+|      28 | A Melodia do Sil?ncio     |   2020 |
+|      29 | O Segredo da Floresta     |   2017 |
+|      30 | Cores do Crep?sculo       |   2018 |
+|      31 | Al?m do Horizonte         |   2019 |
+|      32 | O ?ltimo Poema            |   2020 |
+|      33 | A Chave do Destino        |   2017 |
+|      34 | O ?ltimo Poema            |   2020 |
+|      35 | A Chave do Destino        |   2017 |
+|      36 | Sob a Luz da Lua          |   2018 |
+|      37 | O Guardi?o do Tempo       |   2019 |
+|      38 | Fragmentos de um Sonho    |   2020 |
+|      39 | A Lenda do Drag?o         |   2017 |
+|      40 | O Sussurro das Estrelas   |   2018 |
+|      41 | O Caminho das Sombras     |   2019 |
+|      42 | A Melodia do Sil?ncio     |   2020 |
+|      43 | O Segredo da Floresta     |   2017 |
+|      44 | Cores do Crep?sculo       |   2018 |
+|      45 | Al?m do Horizonte         |   2019 |
+|      46 | O ?ltimo Poema            |   2020 |
+|      47 | A Chave do Destino        |   2017 |
+|      48 | Sob a Luz da Lua          |   2018 |
+|      49 | O Guardi?o do Tempo       |   2019 |
+|      50 | Fragmentos de um Sonho    |   2020 |
+|      51 | A Lenda do Drag?o         |   2017 |
+|      52 | O Sussurro das Estrelas   |   2018 |
+|      53 | O Caminho das Sombras     |   2019 |
+|      54 | A Melodia do Sil?ncio     |   2020 |
+|      55 | Sombras da Noite          |   2019 |
++---------+---------------------------+--------+
+54 rows in set (0.002 sec)
+
+MariaDB [livraria_110]> select idlivro, titulo, anopub from livro where anopub between 2020 and 2021;
++---------+------------------------+--------+
+| idlivro | titulo                 | anopub |
++---------+------------------------+--------+
+|       4 | O Codigo Perdido       |   2020 |
+|       7 | O C?digo Perdido       |   2020 |
+|      10 | O ?ltimo Suspiro       |   2021 |
+|      14 | O Enigma da Lua        |   2020 |
+|      17 | O Despertar dos Deuses |   2021 |
+|      20 | O Labirinto das Almas  |   2020 |
+|      24 | Fragmentos de um Sonho |   2020 |
+|      28 | A Melodia do Sil?ncio  |   2020 |
+|      32 | O ?ltimo Poema         |   2020 |
+|      34 | O ?ltimo Poema         |   2020 |
+|      38 | Fragmentos de um Sonho |   2020 |
+|      42 | A Melodia do Sil?ncio  |   2020 |
+|      46 | O ?ltimo Poema         |   2020 |
+|      50 | Fragmentos de um Sonho |   2020 |
+|      54 | A Melodia do Sil?ncio  |   2020 |
++---------+------------------------+--------+
+15 rows in set (0.000 sec)
+
+MariaDB [livraria_110]> select idlivro, titulo, anopub from livro where anopub in (2020,2021,2022);
++---------+------------------------+--------+
+| idlivro | titulo                 | anopub |
++---------+------------------------+--------+
+|       4 | O Codigo Perdido       |   2020 |
+|       7 | O C?digo Perdido       |   2020 |
+|      10 | O ?ltimo Suspiro       |   2021 |
+|      14 | O Enigma da Lua        |   2020 |
+|      17 | O Despertar dos Deuses |   2021 |
+|      20 | O Labirinto das Almas  |   2020 |
+|      24 | Fragmentos de um Sonho |   2020 |
+|      28 | A Melodia do Sil?ncio  |   2020 |
+|      32 | O ?ltimo Poema         |   2020 |
+|      34 | O ?ltimo Poema         |   2020 |
+|      38 | Fragmentos de um Sonho |   2020 |
+|      42 | A Melodia do Sil?ncio  |   2020 |
+|      46 | O ?ltimo Poema         |   2020 |
+|      50 | Fragmentos de um Sonho |   2020 |
+|      54 | A Melodia do Sil?ncio  |   2020 |
++---------+------------------------+--------+
+15 rows in set (0.001 sec)
+
+MariaDB [livraria_110]> select idlivro, titulo, anopub from livro where anopub >=2020 and anopub <=2022;
++---------+------------------------+--------+
+| idlivro | titulo                 | anopub |
++---------+------------------------+--------+
+|       4 | O Codigo Perdido       |   2020 |
+|       7 | O C?digo Perdido       |   2020 |
+|      10 | O ?ltimo Suspiro       |   2021 |
+|      14 | O Enigma da Lua        |   2020 |
+|      17 | O Despertar dos Deuses |   2021 |
+|      20 | O Labirinto das Almas  |   2020 |
+|      24 | Fragmentos de um Sonho |   2020 |
+|      28 | A Melodia do Sil?ncio  |   2020 |
+|      32 | O ?ltimo Poema         |   2020 |
+|      34 | O ?ltimo Poema         |   2020 |
+|      38 | Fragmentos de um Sonho |   2020 |
+|      42 | A Melodia do Sil?ncio  |   2020 |
+|      46 | O ?ltimo Poema         |   2020 |
+|      50 | Fragmentos de um Sonho |   2020 |
+|      54 | A Melodia do Sil?ncio  |   2020 |
++---------+------------------------+--------+
+15 rows in set (0.000 sec)
+
+MariaDB [livraria_110]> SELECT idlivro, titulo, valor, (valor * 5) AS valor_total_venda
+    -> FROM livro
+    -> WHERE idlivro = 1;
++---------+---------------+--------+-------------------+
+| idlivro | titulo        | valor  | valor_total_venda |
++---------+---------------+--------+-------------------+
+|       1 | O gasparzinho | 109.35 |            546.75 |
++---------+---------------+--------+-------------------+
+1 row in set (0.003 sec)
