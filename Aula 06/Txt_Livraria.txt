@@ -568,3 +568,27 @@ MariaDB [livraria_110]> SELECT idlivro, titulo, valor, (valor * 5) AS valor_tota
 |       1 | O gasparzinho | 109.35 |            546.75 |
 +---------+---------------+--------+-------------------+
 1 row in set (0.003 sec)
+
+MariaDB [livraria_110]> select idlivro, titulo, valor, 5 as quantidade, (5 * valor) as valor_total_venda from livro where idlivro = 1;
++---------+---------------+--------+------------+-------------------+
+| idlivro | titulo        | valor  | quantidade | valor_total_venda |
++---------+---------------+--------+------------+-------------------+
+|       1 | O gasparzinho | 109.35 |          5 |            546.75 |
++---------+---------------+--------+------------+-------------------+
+1 row in set (0.000 sec)
+
+MariaDB [livraria_110]> select count(uf) as total_uf from livro;
++----------+
+| total_uf |
++----------+
+|       55 |
++----------+
+1 row in set (0.004 sec)
+
+MariaDB [livraria_110]> select count(distinct uf) as uf_distintas from livro;
++--------------+
+| uf_distintas |
++--------------+
+|           22 |
++--------------+
+1 row in set (0.003 sec)
