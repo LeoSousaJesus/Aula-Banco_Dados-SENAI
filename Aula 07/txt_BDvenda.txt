@@ -1,0 +1,276 @@
+MariaDB [(none)]> create database loja_informatica;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use loja_informatica;
+Database changed
+
+MariaDB [loja_informatica]> create table venda (
+    -> idvenda int auto_increment primary key,
+    -> data date not null,
+    -> produto varchar(50) not null,
+    -> quantidade int not null,
+    -> valorunitario decimal(10, 2) not null
+    -> );
+Query OK, 0 rows affected (0.005 sec)
+
+MariaDB [loja_informatica]> desc venda;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| idvenda       | int(11)       | NO   | PRI | NULL    | auto_increment |
+| data          | date          | NO   |     | NULL    |                |
+| produto       | varchar(50)   | NO   |     | NULL    |                |
+| quantidade    | int(11)       | NO   |     | NULL    |                |
+| valorunitario | decimal(10,2) | NO   |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.010 sec)
+
+MariaDB [loja_informatica]> insert into venda (data, produto, quantidade, valorunitario) values
+    -> ('2025-01-01', 'Notebook', 30, 2500.00),
+    -> ('2025-02-01', 'Mouse', 100, 50.00),
+    -> ('2025-02-02', 'Teclado', 100, 120.00),
+    -> ('2025-02-03', 'Monitor', 100, 800.00),
+    -> ('2025-02-04', 'Impressora', 50, 400.00),
+    -> ('2025-02-05', 'Headset', 100, 150.00),
+    -> ('2025-02-06', 'Webcam', 70, 200.00),
+    -> ('2025-03-01', 'SSD 500GB', 100, 300.00),
+    -> ('2025-03-02', 'HD Externo 1TB', 100, 350.00),
+    -> ('2025-03-03', 'Pen Drive 32GB', 500, 30.00),
+    -> ('2025-03-04', 'Fonte de Alimentação', 100, 100.00),
+    -> ('2025-03-05', 'Cadeira Gamer', 40, 1200.00),
+    -> ('2025-03-06', 'Roteador Wi-Fi', 80, 250.00),
+    -> ('2025-04-07', 'Mesa Digitalizadora', 30, 500.00),
+    -> ('2025-05-08', 'Caixa de Som', 100, 150.00);
+Query OK, 15 rows affected, 1 warning (0.025 sec)
+Records: 15  Duplicates: 0  Warnings: 1
+
+MariaDB [loja_informatica]> select * from venda;
++---------+------------+----------------------+------------+---------------+
+| idvenda | data       | produto              | quantidade | valorunitario |
++---------+------------+----------------------+------------+---------------+
+|       1 | 2025-01-01 | Notebook             |         30 |       2500.00 |
+|       2 | 2025-02-01 | Mouse                |        100 |         50.00 |
+|       3 | 2025-02-02 | Teclado              |        100 |        120.00 |
+|       4 | 2025-02-03 | Monitor              |        100 |        800.00 |
+|       5 | 2025-02-04 | Impressora           |         50 |        400.00 |
+|       6 | 2025-02-05 | Headset              |        100 |        150.00 |
+|       7 | 2025-02-06 | Webcam               |         70 |        200.00 |
+|       8 | 2025-03-01 | SSD 500GB            |        100 |        300.00 |
+|       9 | 2025-03-02 | HD Externo 1TB       |        100 |        350.00 |
+|      10 | 2025-03-03 | Pen Drive 32GB       |        500 |         30.00 |
+|      11 | 2025-03-04 | Fonte de Alimenta??o |        100 |        100.00 |
+|      12 | 2025-03-05 | Cadeira Gamer        |         40 |       1200.00 |
+|      13 | 2025-03-06 | Roteador Wi-Fi       |         80 |        250.00 |
+|      14 | 2025-04-07 | Mesa Digitalizadora  |         30 |        500.00 |
+|      15 | 2025-05-08 | Caixa de Som         |        100 |        150.00 |
++---------+------------+----------------------+------------+---------------+
+15 rows in set (0.000 sec)
+
+MariaDB [loja_informatica]> select produto, valorunitario from venda;
++----------------------+---------------+
+| produto              | valorunitario |
++----------------------+---------------+
+| Notebook             |       2500.00 |
+| Mouse                |         50.00 |
+| Teclado              |        120.00 |
+| Monitor              |        800.00 |
+| Impressora           |        400.00 |
+| Headset              |        150.00 |
+| Webcam               |        200.00 |
+| SSD 500GB            |        300.00 |
+| HD Externo 1TB       |        350.00 |
+| Pen Drive 32GB       |         30.00 |
+| Fonte de Alimenta??o |        100.00 |
+| Cadeira Gamer        |       1200.00 |
+| Roteador Wi-Fi       |        250.00 |
+| Mesa Digitalizadora  |        500.00 |
+| Caixa de Som         |        150.00 |
++----------------------+---------------+
+15 rows in set (0.000 sec)
+
+MariaDB [loja_informatica]> select count(*) as total_produtos from venda;
++----------------+
+| total_produtos |
++----------------+
+|             15 |
++----------------+
+1 row in set (0.000 sec)
+
+MariaDB [loja_informatica]> select count(quantidade) as quantidade_produtos from venda;
++---------------------+
+| quantidade_produtos |
++---------------------+
+|                  15 |
++---------------------+
+1 row in set (0.000 sec)
+
+MariaDB [loja_informatica]> select sum(quantidade) as quantidade_vendida from venda;
++--------------------+
+| quantidade_vendida |
++--------------------+
+|               1600 |
++--------------------+
+1 row in set (0.000 sec)
+
+MariaDB [loja_informatica]> select produto, valorunitario * 1.10 as valor_acrescimo from venda;
++----------------------+-----------------+
+| produto              | valor_acrescimo |
++----------------------+-----------------+
+| Notebook             |       2750.0000 |
+| Mouse                |         55.0000 |
+| Teclado              |        132.0000 |
+| Monitor              |        880.0000 |
+| Impressora           |        440.0000 |
+| Headset              |        165.0000 |
+| Webcam               |        220.0000 |
+| SSD 500GB            |        330.0000 |
+| HD Externo 1TB       |        385.0000 |
+| Pen Drive 32GB       |         33.0000 |
+| Fonte de Alimenta??o |        110.0000 |
+| Cadeira Gamer        |       1320.0000 |
+| Roteador Wi-Fi       |        275.0000 |
+| Mesa Digitalizadora  |        550.0000 |
+| Caixa de Som         |        165.0000 |
++----------------------+-----------------+
+15 rows in set (0.000 sec)
+
+MariaDB [loja_informatica]> select produto, quantidade * valorunitario as valor_total_produto from venda where idvenda
+ = 1;
++----------+---------------------+
+| produto  | valor_total_produto |
++----------+---------------------+
+| Notebook |            75000.00 |
++----------+---------------------+
+1 row in set (0.000 sec)
+
+MariaDB [loja_informatica]> select produto, sum(quantidade * valorunitario) as total_vendas from venda group by produto;
++----------------------+--------------+
+| produto              | total_vendas |
++----------------------+--------------+
+| Cadeira Gamer        |     48000.00 |
+| Caixa de Som         |     15000.00 |
+| Fonte de Alimenta??o |     10000.00 |
+| HD Externo 1TB       |     35000.00 |
+| Headset              |     15000.00 |
+| Impressora           |     20000.00 |
+| Mesa Digitalizadora  |     15000.00 |
+| Monitor              |     80000.00 |
+| Mouse                |      5000.00 |
+| Notebook             |     75000.00 |
+| Pen Drive 32GB       |     15000.00 |
+| Roteador Wi-Fi       |     20000.00 |
+| SSD 500GB            |     30000.00 |
+| Teclado              |     12000.00 |
+| Webcam               |     14000.00 |
++----------------------+--------------+
+15 rows in set (0.000 sec)
+
+MariaDB [loja_informatica]> select produto, sum(quantidade) as quantidade_total from venda group by produto;
++----------------------+------------------+
+| produto              | quantidade_total |
++----------------------+------------------+
+| Cadeira Gamer        |               40 |
+| Caixa de Som         |              100 |
+| Fonte de Alimenta??o |              100 |
+| HD Externo 1TB       |              100 |
+| Headset              |              100 |
+| Impressora           |               50 |
+| Mesa Digitalizadora  |               30 |
+| Monitor              |              100 |
+| Mouse                |              100 |
+| Notebook             |               30 |
+| Pen Drive 32GB       |              500 |
+| Roteador Wi-Fi       |               80 |
+| SSD 500GB            |              100 |
+| Teclado              |              100 |
+| Webcam               |               70 |
++----------------------+------------------+
+15 rows in set (0.000 sec)
+
+MariaDB [loja_informatica]> select data, count(*) as numero_vendas from venda group by data;
++------------+---------------+
+| data       | numero_vendas |
++------------+---------------+
+| 2025-01-01 |             1 |
+| 2025-02-01 |             1 |
+| 2025-02-02 |             1 |
+| 2025-02-03 |             1 |
+| 2025-02-04 |             1 |
+| 2025-02-05 |             1 |
+| 2025-02-06 |             1 |
+| 2025-03-01 |             1 |
+| 2025-03-02 |             1 |
+| 2025-03-03 |             1 |
+| 2025-03-04 |             1 |
+| 2025-03-05 |             1 |
+| 2025-03-06 |             1 |
+| 2025-04-07 |             1 |
+| 2025-05-08 |             1 |
++------------+---------------+
+15 rows in set (0.000 sec)
+
+MariaDB [loja_informatica]> select produto, avg(valorunitario) as valor_medio from venda group by produto;
++----------------------+-------------+
+| produto              | valor_medio |
++----------------------+-------------+
+| Cadeira Gamer        | 1200.000000 |
+| Caixa de Som         |  150.000000 |
+| Fonte de Alimenta??o |  100.000000 |
+| HD Externo 1TB       |  350.000000 |
+| Headset              |  150.000000 |
+| Impressora           |  400.000000 |
+| Mesa Digitalizadora  |  500.000000 |
+| Monitor              |  800.000000 |
+| Mouse                |   50.000000 |
+| Notebook             | 2500.000000 |
+| Pen Drive 32GB       |   30.000000 |
+| Roteador Wi-Fi       |  250.000000 |
+| SSD 500GB            |  300.000000 |
+| Teclado              |  120.000000 |
+| Webcam               |  200.000000 |
++----------------------+-------------+
+15 rows in set (0.000 sec)
+
+MariaDB [loja_informatica]> select * from venda where valorunitario > 200;
++---------+------------+---------------------+------------+---------------+
+| idvenda | data       | produto             | quantidade | valorunitario |
++---------+------------+---------------------+------------+---------------+
+|       1 | 2025-01-01 | Notebook            |         30 |       2500.00 |
+|       4 | 2025-02-03 | Monitor             |        100 |        800.00 |
+|       5 | 2025-02-04 | Impressora          |         50 |        400.00 |
+|       8 | 2025-03-01 | SSD 500GB           |        100 |        300.00 |
+|       9 | 2025-03-02 | HD Externo 1TB      |        100 |        350.00 |
+|      12 | 2025-03-05 | Cadeira Gamer       |         40 |       1200.00 |
+|      13 | 2025-03-06 | Roteador Wi-Fi      |         80 |        250.00 |
+|      14 | 2025-04-07 | Mesa Digitalizadora |         30 |        500.00 |
++---------+------------+---------------------+------------+---------------+
+8 rows in set (0.000 sec)
+
+MariaDB [loja_informatica]> select * from venda where data between '2025-01-01' AND '2025-02-05';
++---------+------------+------------+------------+---------------+
+| idvenda | data       | produto    | quantidade | valorunitario |
++---------+------------+------------+------------+---------------+
+|       1 | 2025-01-01 | Notebook   |         30 |       2500.00 |
+|       2 | 2025-02-01 | Mouse      |        100 |         50.00 |
+|       3 | 2025-02-02 | Teclado    |        100 |        120.00 |
+|       4 | 2025-02-03 | Monitor    |        100 |        800.00 |
+|       5 | 2025-02-04 | Impressora |         50 |        400.00 |
+|       6 | 2025-02-05 | Headset    |        100 |        150.00 |
++---------+------------+------------+------------+---------------+
+6 rows in set (0.000 sec)
+
+MariaDB [loja_informatica]> select produto, valorunitario from venda order by valorunitario desc limit 1;
++----------+---------------+
+| produto  | valorunitario |
++----------+---------------+
+| Notebook |       2500.00 |
++----------+---------------+
+1 row in set (0.000 sec)
+
+MariaDB [loja_informatica]> select produto, valorunitario from venda order by valorunitario asc limit 1;
++----------------+---------------+
+| produto        | valorunitario |
++----------------+---------------+
+| Pen Drive 32GB |         30.00 |
++----------------+---------------+
+1 row in set (0.000 sec)
