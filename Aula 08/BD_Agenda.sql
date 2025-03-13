@@ -10,8 +10,8 @@ USE Agenda;
 
 CREATE TABLE contato (
     idcontato INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100),
+    nome VARCHAR(50) NOT NULL,
+    email VARCHAR(50),
     ddd CHAR(2) NOT NULL,
     telefone VARCHAR(10) NOT NULL,
     UF CHAR(2) NOT NULL
