@@ -31,8 +31,10 @@ SELECT * FROM contato WHERE nome LIKE 'J%';
 -- 6. Projetar o contato cujo e-mail começa com determinadas letras
 SELECT * FROM contato WHERE email LIKE 'a%';
 
--- 7. Projetar os contatos em ordem alfabética crescente e decrescente
+-- 7. Projetar os contatos em ordem alfabética crescente
 SELECT * FROM contato ORDER BY nome ASC;
+
+-- Projetar os contatos em ordem decrescente
 SELECT * FROM contato ORDER BY nome DESC;
 
 -- 8. Projetar todos os contatos sem email
