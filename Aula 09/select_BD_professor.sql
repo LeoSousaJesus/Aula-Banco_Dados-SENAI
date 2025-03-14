@@ -13,3 +13,10 @@ inner join curso c
 on p.idProfessor = c.fk_idProfessor;
 
 /* nome do professor, especialidade, curso, turno */
+select p.nome as nome_professor, 
+       p.especialidade, 
+       c.curso, 
+       c.turno
+from professor p
+inner join curso c
+on p.idProfessor = c.fk_idProfessor;
