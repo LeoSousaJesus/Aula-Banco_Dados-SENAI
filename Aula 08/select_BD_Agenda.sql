@@ -48,3 +48,6 @@ SELECT UF, GROUP_CONCAT(DISTINCT ddd) AS ddds FROM contato GROUP BY UF;
 
 -- 11. Projetar os nomes por UF
 SELECT UF, GROUP_CONCAT(nome) AS nomes FROM contato GROUP BY UF;
+
+-- Projetar os nomes da UF BA
+SELECT UF, GROUP_CONCAT(nome) AS nomes FROM contato WHERE UF='BA' GROUP BY UF;
