@@ -18,3 +18,30 @@ ESQUECER DE MOSTRAR QUE REALMENTE É O IDCLIENTE PROCURADO.
 uf;
 
 */
+
+/* Modelo_Logico_BD_cliente: */
+
+CREATE TABLE Cliente (
+    id_cliente INTEGER PRIMARY KEY,
+    nome VARCHAR,
+    sobrenome VARCHAR
+);
+
+CREATE TABLE Endereco (
+    id_endereco INTEGER PRIMARY KEY,
+    logradouro VARCHAR,
+    numero VARCHAR,
+    cidade VARCHAR,
+    UF DECIMAL
+);
+
+CREATE TABLE Telefone (
+    id_telefone INTEGER PRIMARY KEY,
+    ddd CHAR,
+    numero VARCHAR
+);
+
+CREATE TABLE TipoTelefone (
+    id_tipoTelefone INTEGER PRIMARY KEY,
+    tipo VARCHAR
+);
