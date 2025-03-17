@@ -21,27 +21,37 @@ uf;
 
 /* Modelo_Logico_BD_cliente: */
 
+CREATE DATABASE BD_cliente;
+
+Use BD_cliente;
+
 CREATE TABLE Cliente (
-    id_cliente INTEGER PRIMARY KEY,
-    nome VARCHAR,
-    sobrenome VARCHAR
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    sobrenome VARCHAR(50) NOT NULL,
+    id_endereco INT NOT NULL,
+    FOREIGN KEY (id_endereco) REFERENCES Cliente(id_endereco),
+    id_telefone INT NOT NULL,
+    FOREIGN KEY (id_telefone) REFERENCES Cliente(id_telefone)
 );
 
 CREATE TABLE Endereco (
-    id_endereco INTEGER PRIMARY KEY,
-    logradouro VARCHAR,
-    numero VARCHAR,
-    cidade VARCHAR,
-    UF DECIMAL
+    id_endereco INT AUTO_INCREMENT PRIMARY KEY,
+    logradouro VARCHAR(100) NOT NULL,
+    numero VARCHAR(50) NOT NULL,
+    cidade VARCHAR(50) NOT NULL,
+    UF CHAR(2)
 );
 
 CREATE TABLE Telefone (
-    id_telefone INTEGER PRIMARY KEY,
-    ddd CHAR,
-    numero VARCHAR
+    id_telefone INT AUTO_INCREMENT PRIMARY KEY,
+    ddd CHAR(2) NOT NULL,
+    numero VARCHAR(15) NOT NULL,
+    id_tipoTelefone INT NOT NULL,
+    FOREIGN KEY (id_tipotelefone) REFERENCES TipoTelefone(id_tipotelefone)
 );
 
 CREATE TABLE TipoTelefone (
-    id_tipoTelefone INTEGER PRIMARY KEY,
-    tipo VARCHAR
+    id_tipoTelefone INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50) NOT NULL
 );
