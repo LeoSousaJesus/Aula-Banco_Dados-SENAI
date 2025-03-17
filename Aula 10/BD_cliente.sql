@@ -28,11 +28,7 @@ Use BD_cliente;
 CREATE TABLE Cliente (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
-    sobrenome VARCHAR(50) NOT NULL,
-    id_endereco INT NOT NULL,
-    FOREIGN KEY (id_endereco) REFERENCES Cliente(id_endereco),
-    id_telefone INT NOT NULL,
-    FOREIGN KEY (id_telefone) REFERENCES Cliente(id_telefone)
+    sobrenome VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Endereco (
@@ -40,13 +36,17 @@ CREATE TABLE Endereco (
     logradouro VARCHAR(100) NOT NULL,
     numero VARCHAR(50) NOT NULL,
     cidade VARCHAR(50) NOT NULL,
-    UF CHAR(2)
+    UF CHAR(2),
+    id_endereco INT NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
 );
 
 CREATE TABLE Telefone (
     id_telefone INT AUTO_INCREMENT PRIMARY KEY,
     ddd CHAR(2) NOT NULL,
     numero VARCHAR(15) NOT NULL,
+    id_cliente INT NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
     id_tipoTelefone INT NOT NULL,
     FOREIGN KEY (id_tipotelefone) REFERENCES TipoTelefone(id_tipotelefone)
 );
