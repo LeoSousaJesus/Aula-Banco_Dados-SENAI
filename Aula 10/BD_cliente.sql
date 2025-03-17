@@ -48,7 +48,7 @@ CREATE TABLE Telefone (
     id_cliente INT NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
     id_tipoTelefone INT NOT NULL,
-    FOREIGN KEY (id_tipotelefone) REFERENCES TipoTelefone(id_tipotelefone)
+    FOREIGN KEY (id_tipoTelefone) REFERENCES TipoTelefone(id_tipotelefone)
 );
 
 CREATE TABLE TipoTelefone (
