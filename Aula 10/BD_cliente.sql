@@ -37,7 +37,7 @@ CREATE TABLE Endereco (
     numero VARCHAR(50) NOT NULL,
     cidade VARCHAR(50) NOT NULL,
     UF CHAR(2),
-    id_endereco INT NOT NULL,
+    id_cliente INT NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
 );
 
