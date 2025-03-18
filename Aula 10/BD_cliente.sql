@@ -16,42 +16,39 @@ ESQUECER DE MOSTRAR QUE REALMENTE É O IDCLIENTE PROCURADO.
 14. projetar nome, sobrenome, tipotelefone, ddd, numero por ordem de nome;
 15. projetar nome, sobrenome, logradouro, cidade, uf, tipotelefone, ddd, numero, por ordem de
 uf;
-
 */
 
-/* Modelo_Logico_BD_cliente: */
+/* Modelo Físico BD_cliente: */
 
-CREATE DATABASE BD_cliente;
+create database cliente_endereco110;
+use cliente_endereco110;
 
-Use BD_cliente;
-
-CREATE TABLE Cliente (
-    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL,
-    sobrenome VARCHAR(50) NOT NULL
+create table cliente(
+idcliente int primary key auto_increment,
+nome varchar(50) not null,
+sobrenome varchar(50) not null
 );
 
-CREATE TABLE Endereco (
-    id_endereco INT AUTO_INCREMENT PRIMARY KEY,
-    logradouro VARCHAR(100) NOT NULL,
-    numero VARCHAR(50) NOT NULL,
-    cidade VARCHAR(50) NOT NULL,
-    UF CHAR(2),
-    id_cliente INT NOT NULL,
-    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+Create table tipotelefone(
+idtipotelefone int primary key auto_increment,
+tipotelefone varchar(20) not null
 );
 
-CREATE TABLE Telefone (
-    id_telefone INT AUTO_INCREMENT PRIMARY KEY,
-    ddd CHAR(2) NOT NULL,
-    numero VARCHAR(15) NOT NULL,
-    id_cliente INT NOT NULL,
-    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
-    id_tipoTelefone INT NOT NULL,
-    FOREIGN KEY (id_tipoTelefone) REFERENCES TipoTelefone(id_tipotelefone)
+create table endereco(
+idendereco int primary key auto_increment,
+logradouro varchar(50) not null,
+cidade varchar(50) not null,
+uf char(2) not null,
+id_cliente int,
+foreign key (id_cliente) references cliente(idcliente)
 );
 
-CREATE TABLE TipoTelefone (
-    id_tipoTelefone INT AUTO_INCREMENT PRIMARY KEY,
-    tipo VARCHAR(50) NOT NULL
+create table telefone(
+idtelefone int primary key auto_increment,
+ddd varchar(5) not null,
+numero varchar(20) not null,
+id_cliente int,
+id_tipotelefone int,
+foreign key (id_cliente) references cliente(idcliente),
+foreign key (id_tipotelefone) references tipotelefone(idtipotelefone)
 );
