@@ -44,8 +44,8 @@ ORDER BY cidade;
 
 /* 8. Projetar a quantidade de UFs cadastradas sem repetição */
 
-SELECT uf, COUNT(DISTINCT uf) AS quantidade_uf
-FROM endereco GROUP BY uf;
+SELECT COUNT(DISTINCT uf) AS quantidade_uf
+FROM endereco;
 
 /* 9. Projetar idcliente, nome, sobrenome, UFs, ddds */
 
