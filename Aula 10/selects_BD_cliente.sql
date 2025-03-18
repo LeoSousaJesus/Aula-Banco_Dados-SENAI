@@ -1,5 +1,4 @@
 /* 1. Projetar Nome, Sobrenome, Logradouro, UF */
-
 SELECT c.nome, c.sobrenome, e.logradouro, e.uf
 FROM cliente c
 JOIN endereco e ON c.idcliente = e.id_cliente;
