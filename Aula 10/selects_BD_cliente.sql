@@ -98,3 +98,15 @@ JOIN endereco e ON c.idcliente = e.id_cliente
 JOIN telefone t ON c.idcliente = t.id_cliente
 JOIN tipotelefone tt ON t.id_tipotelefone = tt.idtipotelefone
 ORDER BY e.uf;
+
+create view relatorio as 
+SELECT c.nome, c.sobrenome, e.logradouro, e.cidade, e.uf, tt.tipotelefone, t.ddd, t.numero
+FROM cliente c
+JOIN endereco e ON c.idcliente = e.id_cliente
+JOIN telefone t ON c.idcliente = t.id_cliente
+JOIN tipotelefone tt ON t.id_tipotelefone = tt.idtipotelefone
+ORDER BY e.uf;
+
+SELECT * FROM relatorio;
+
+SELECT nome, logradouro FROM relatorio;
