@@ -11,7 +11,7 @@ create table departamento (
 create table empregado (
     idEmpregado int primary key auto_increment,
     nomeEmpregado varchar(50),
-    salario DECIMAL(5, 2),
+    salario float(7,2),
     sexo char(1),
     fk_funcionario int,
     foreign key (fk_funcionario) references departamento(idDepartamento)
