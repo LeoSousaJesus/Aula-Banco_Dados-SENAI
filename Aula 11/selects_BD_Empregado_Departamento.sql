@@ -50,13 +50,13 @@ GROUP BY d.nomeDepartamento;
 
 
 /* 7 - Aumento de salario para um determinado departamento */
-SELECT idEmpregado, nomeEmpregado, salario AS salario_atual, salario * 1.10 AS aumento_salarial,
+SELECT idEmpregado, nomeEmpregado, salario AS salario_atual, salario * 1.50 AS aumento_salarial,
 fk_funcionario AS Codigo_Departamento
 FROM Empregado
-WHERE fk_funcionario = 1;
+WHERE fk_funcionario = 2;
 
 
 /* 8 - Aumento de 10% de salario para o sexo feminino */
-SELECT idEmpregado, nomeEmpregado, salario AS salario_atual, salario * 1.50 AS salario_com_aumento, sexo
+SELECT idEmpregado, nomeEmpregado, salario AS salario_atual, salario * 1.10 AS salario_com_aumento, sexo
 FROM Empregado
 WHERE sexo = 'F';
