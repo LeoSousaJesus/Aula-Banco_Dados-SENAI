@@ -1,38 +1,53 @@
+/* Criar Banco Livros */
 CREATE DATABASE BD_Livros;
+
+/* Ativar o BD_Livros */
 USE BD_Livros;
 
+/* Tabela Autor */
 CREATE TABLE autor (
-    id_autor INT PRIMARY KEY,
+    idAutor INT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    cpf VARCHAR(14) NOT NULL,
-    sexo CHAR(1)
+    CPF VARCHAR(14) NOT NULL,
+    sexo CHAR(1) NOT NULL
 );
 
-CREATE TABLE categoria (
-    id_categoria INT PRIMARY KEY,
-    tipocategoria VARCHAR(50) NOT NULL
-);
-
+/* Tabela Editora */
 CREATE TABLE editora (
-    id_editora INT PRIMARY KEY,
+    idEditora INT PRIMARY KEY,
     nomeeditora VARCHAR(50) NOT NULL,
-    telefone VARCHAR(12) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    cnpj VARCHAR(18)
+    cnpj VARCHAR(18) NOT NULL
 );
 
+/* Tabela Telefone*/
+CREATE TABLE telefone (
+	idTelefone INT PRIMARY KEY,
+    DDD CHAR(2) NOT NULL,
+    numero VARCHAR (15) NOT NULL,
+    fk_idCategoria INT,
+    FOREIGN KEY (fk_idCategoria) REFERENCES editora(idEditora)
+);
+
+/* Tabela Categoria */
+CREATE TABLE categoria (
+    idCategoria INT PRIMARY KEY,
+    tipoCategoria VARCHAR(50) NOT NULL
+);
+
+/* Tabela Livro */
 CREATE TABLE livro (
-    id_livro INT PRIMARY KEY,
-    isbn VARCHAR(17) NOT NULL,
+    idLivro INT PRIMARY KEY,
     titulo VARCHAR(50) NOT NULL,
+    isbn VARCHAR(18) NOT NULL,
     datalancamento DATE,
     numeropagina INT NOT NULL,
     valor FLOAT(7,2) NOT NULL,
-    fk_id_autor INT,
-    fk_id_editora INT,
-    fk_id_categoria INT,
-    FOREIGN KEY (fk_id_autor) REFERENCES autor(id_autor),
-    FOREIGN KEY (fk_id_editora) REFERENCES editora(id_editora),
-    FOREIGN KEY (fk_id_categoria) REFERENCES categoria(id_categoria)
+    fk_idAutor INT,
+    fk_idEditora INT,
+    fk_idCategoria INT,
+    FOREIGN KEY (fk_idAutor) REFERENCES autor(idAutor),
+    FOREIGN KEY (fk_idEditora) REFERENCES editora(idEditora),
+    FOREIGN KEY (fk_idCategoria) REFERENCES categoria(idCategoria)
 );
