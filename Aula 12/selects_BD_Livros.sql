@@ -7,7 +7,7 @@ SELECT * FROM editora;
 -- 3. Projetar todos os livros e suas editoras
 SELECT l.*, e.nomeeditora 
 FROM livro l
-JOIN editora e ON l.fk_id_editora = e.id_editora;
+JOIN editora e ON l.fk_idEditora = e.idEditora;
 
 -- 4. Projetar todos os autores
 SELECT * FROM autor;
@@ -15,7 +15,7 @@ SELECT * FROM autor;
 -- 5. Projetar todos os autores e seus livros
 SELECT a.*, l.titulo AS livro
 FROM autor a
-LEFT JOIN livro l ON a.id_autor = l.fk_id_autor;
+LEFT JOIN livro l ON a.idAutor = l.fk_idAutor;
 
 -- 6. Projetar livros e seus valores
 SELECT titulo, valor FROM livro;
@@ -23,29 +23,29 @@ SELECT titulo, valor FROM livro;
 -- 7. Projetar autores, e-mail, livros e valores
 SELECT a.nome, a.email, l.titulo AS livro, l.valor
 FROM autor a
-LEFT JOIN livro l ON a.id_autor = l.fk_id_autor;
+LEFT JOIN livro l ON a.idAutor = l.fk_idAutor;
 
 -- 8. Projetar autor, sexo, livro e editoras
 SELECT a.nome AS autor, a.sexo, l.titulo AS livro, e.nomeeditora AS editora
 FROM autor a
-LEFT JOIN livro l ON a.id_autor = l.fk_id_autor
-LEFT JOIN editora e ON l.fk_id_editora = e.id_editora;
+LEFT JOIN livro l ON a.idAutor = l.fk_idAutor
+LEFT JOIN editora e ON l.fk_idEditora = e.idEditora;
 
 -- 9. Projetar identificação da editora e os livros cadastrados
-SELECT e.id_editora, e.nomeeditora, l.titulo AS livro
+SELECT e.idEditora, e.nomeeditora, l.titulo AS livro
 FROM editora e
-LEFT JOIN livro l ON e.id_editora = l.fk_id_editora;
+LEFT JOIN livro l ON e.idEditora = l.fk_idEditora;
 
 -- 10. Projetar autor, livro, tipocategoria e isbn
-SELECT a.nome AS autor, l.titulo AS livro, c.tipocategoria, l.isbn
+SELECT a.nome AS autor, l.titulo AS livro, c.tipoCategoria, l.isbn
 FROM autor a
-JOIN livro l ON a.id_autor = l.fk_id_autor
-JOIN categoria c ON l.fk_id_categoria = c.id_categoria;
+JOIN livro l ON a.idAutor = l.fk_idAutor
+JOIN categoria c ON l.fk_idCategoria = c.idCategoria;
 
 -- 11. Projetar todas as categorias e seus livros
-SELECT c.tipocategoria, l.titulo AS livro
+SELECT c.tipoCategoria, l.titulo AS livro
 FROM categoria c
-LEFT JOIN livro l ON c.id_categoria = l.fk_id_categoria;
+LEFT JOIN livro l ON c.idCategoria = l.fk_idCategoria;
 
 -- 12. Projetar quantidade de autores
 SELECT COUNT(*) AS total_autores FROM autor;
@@ -74,27 +74,27 @@ SELECT COUNT(*) AS total_editoras FROM editora;
 SELECT COUNT(*) AS total_categorias FROM categoria;
 
 -- 19. Projetar quantidade de categorias agrupadas por tipo
-SELECT tipocategoria, COUNT(*) AS quantidade_livros
+SELECT c.tipoCategoria, COUNT(l.idLivro) AS quantidade_livros
 FROM categoria c
-JOIN livro l ON c.id_categoria = l.fk_id_categoria
-GROUP BY tipocategoria;
+LEFT JOIN livro l ON c.idCategoria = l.fk_idCategoria
+GROUP BY c.tipoCategoria;
 
 -- 20. Projetar todos os livros, editoras, e-mail, categoria, valores
-SELECT l.titulo AS livro, e.nomeeditora AS editora, e.email, c.tipocategoria, l.valor
+SELECT l.titulo AS livro, e.nomeeditora AS editora, e.email, c.tipoCategoria, l.valor
 FROM livro l
-JOIN editora e ON l.fk_id_editora = e.id_editora
-JOIN categoria c ON l.fk_id_categoria = c.id_categoria;
+JOIN editora e ON l.fk_idEditora = e.idEditora
+JOIN categoria c ON l.fk_idCategoria = c.idCategoria;
 
 -- 21. Projetar todos os livros, editoras, CNPJ, Tipocategoria, valores
-SELECT l.titulo AS livro, e.nomeeditora AS editora, e.cnpj, c.tipocategoria, l.valor
+SELECT l.titulo AS livro, e.nomeeditora AS editora, e.cnpj, c.tipoCategoria, l.valor
 FROM livro l
-JOIN editora e ON l.fk_id_editora = e.id_editora
-JOIN categoria c ON l.fk_id_categoria = c.id_categoria;
+JOIN editora e ON l.fk_idEditora = e.idEditora
+JOIN categoria c ON l.fk_idCategoria = c.idCategoria;
 
 -- 22. Projetar Editoras, CNPJ, livro e datalancamento
 SELECT e.nomeeditora AS editora, e.cnpj, l.titulo AS livro, l.datalancamento
 FROM editora e
-JOIN livro l ON e.id_editora = l.fk_id_editora;
+JOIN livro l ON e.idEditora = l.fk_idEditora;
 
 -- 23. Projetar todos os livros que foram lançados entre duas datas
 SELECT titulo, datalancamento 
@@ -107,36 +107,37 @@ FROM livro
 WHERE YEAR(datalancamento) = 2017;
 
 -- 25. Projetar todos os livros, ISBN, editora, telefone, e-mail de uma determinada categoria
-SELECT l.titulo, l.isbn, e.nomeeditora, e.telefone, e.email
+SELECT l.titulo, l.isbn, e.nomeeditora, t.numero AS telefone, e.email
 FROM livro l
-JOIN editora e ON l.fk_id_editora = e.id_editora
-JOIN categoria c ON l.fk_id_categoria = c.id_categoria
-WHERE c.tipocategoria = 'Fantasia';
+JOIN editora e ON l.fk_idEditora = e.idEditora
+JOIN categoria c ON l.fk_idCategoria = c.idCategoria
+JOIN telefone t ON e.idEditora = t.fk_idCategoria
+WHERE c.tipoCategoria = 'Fantasia';
 
 -- 26. Projetar os autores, CPF, de um determinado tipo de livro
 SELECT a.nome, a.cpf
 FROM autor a
-JOIN livro l ON a.id_autor = l.fk_id_autor
-JOIN categoria c ON l.fk_id_categoria = c.id_categoria
-WHERE c.tipocategoria = 'Terror';
+JOIN livro l ON a.idAutor = l.fk_idAutor
+JOIN categoria c ON l.fk_idCategoria = c.idCategoria
+WHERE c.tipoCategoria = 'Terror';
 
 -- 27. Criar view com a projeção livro, isbn, editora, datalancamento
 CREATE VIEW vw_livros_editoras AS
 SELECT l.titulo AS livro, l.isbn, e.nomeeditora AS editora, l.datalancamento
 FROM livro l
-JOIN editora e ON l.fk_id_editora = e.id_editora;
+JOIN editora e ON l.fk_idEditora = e.idEditora;
 
 -- 28. Criar view com projeção de livros, editoras e valores
 CREATE VIEW vw_livros_valores AS
 SELECT l.titulo AS livro, e.nomeeditora AS editora, l.valor
 FROM livro l
-JOIN editora e ON l.fk_id_editora = e.id_editora;
+JOIN editora e ON l.fk_idEditora = e.idEditora;
 
 -- 29. Criar uma view com desconto de 30% para uma determinada editora
 CREATE VIEW vw_livros_desconto_editora AS
 SELECT l.titulo AS livro, e.nomeeditora AS editora, l.valor, (l.valor * 0.70) AS valor_com_desconto
 FROM livro l
-JOIN editora e ON l.fk_id_editora = e.id_editora
+JOIN editora e ON l.fk_idEditora = e.idEditora
 WHERE e.nomeeditora = 'Companhia das Letras';
 
 -- 30. Mostrar todas as views
