@@ -107,12 +107,12 @@ FROM livro
 WHERE YEAR(datalancamento) = 2017;
 
 -- 25. Projetar todos os livros, ISBN, editora, telefone, e-mail de uma determinada categoria
-SELECT l.titulo, l.isbn, e.nomeeditora, t.numero AS telefone, e.email
+SELECT l.titulo, l.isbn, e.nomeeditora, t.numero, e.email, c.tipocategoria
 FROM livro l
 JOIN editora e ON l.fk_idEditora = e.idEditora
 JOIN categoria c ON l.fk_idCategoria = c.idCategoria
 JOIN telefone t ON e.idEditora = t.fk_idCategoria
-WHERE c.tipoCategoria = 'Fantasia';
+WHERE c.tipoCategoria = 'Terror';
 
 -- 26. Projetar os autores, CPF, de um determinado tipo de livro
 SELECT a.nome, a.cpf
