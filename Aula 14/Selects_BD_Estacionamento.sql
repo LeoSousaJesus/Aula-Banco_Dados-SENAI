@@ -102,7 +102,11 @@ UPDATE Veiculo SET Modelo = 'Palio' WHERE IdVeiculo = 1;
 UPDATE Veiculo SET Modelo = 'I30' WHERE IdVeiculo = 2;
 
 -- 22- Excluir um registro de cliente.
-DELETE FROM Cliente WHERE IdCliente = 20;
+
+DELETE FROM Ticket WHERE fk_IdCliente = 5;
+DELETE FROM Telefone WHERE fk_IdCliente = 5;
+DELETE FROM Veiculo WHERE fk_IdCliente = 5;
+DELETE FROM Cliente WHERE IdCliente = 5;
 
 -- 23- Inserir mais 1 registro de cliente com vaga de autoridade.
 -- Primeiro inserir o novo cliente
