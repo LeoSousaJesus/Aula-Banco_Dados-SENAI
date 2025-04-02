@@ -1,0 +1,123 @@
+ALUNO@LAB-F07-12 c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 14
+Server version: 10.4.19-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> select user from mysql.user;
++------+
+| User |
++------+
+| root |
+| root |
+| pma  |
+| root |
++------+
+4 rows in set (0.052 sec)
+
+MariaDB [(none)]> create user "bolinha@localhost" identified by "@B123456";
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [(none)]> select user from mysql.user;
++-------------------+
+| User              |
++-------------------+
+| bolinha@localhost |
+| root              |
+| root              |
+| pma               |
+| root              |
++-------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [(none)]> exit
+Bye
+
+ALUNO@LAB-F07-12 c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 22
+Server version: 10.4.19-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> select user from mysql.user;
++-------------------+
+| User              |
++-------------------+
+| bolinha@localhost |
+| root              |
+| root              |
+| pma               |
+| root              |
++-------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [(none)]> grant insert, select
+    -> on estacionamento_110.*
+    -> to "bolinha@localhost";
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [(none)]> exit
+Bye
+
+ALUNO@LAB-F07-12 c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 30
+Server version: 10.4.19-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> select user from mysql.user;
++-------------------+
+| User              |
++-------------------+
+| bolinha@localhost |
+| root              |
+| root              |
+| pma               |
+| root              |
++-------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [(none)]> create user "mestre@localhost" identified by "@1234567";
+Query OK, 0 rows affected (0.002 sec)
+
+MariaDB [(none)]> select user from mysql.user;
++-------------------+
+| User              |
++-------------------+
+| bolinha@localhost |
+| mestre@localhost  |
+| root              |
+| root              |
+| pma               |
+| root              |
++-------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> grant delete, select on estacionamento_110.cliente to "mestre@localhost";
+ERROR 1146 (42S02): Table 'estacionamento_110.cliente' doesn't exist
+MariaDB [(none)]> grant delete, select on BD_estacionamento_110.cliente to "mestre@localhost";
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [(none)]> show grants for "mestre@localhost";
++-----------------------------------------------------------------------------------------------------------------+
+| Grants for mestre@localhost@%                                                                                   |
++-----------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `mestre@localhost`@`%` IDENTIFIED BY PASSWORD '*833894A8F60500CC9DE63BDC6A4A9713C3C3F6F8' |
+| GRANT SELECT, DELETE ON `bd_estacionamento_110`.`cliente` TO `mestre@localhost`@`%`                             |
++-----------------------------------------------------------------------------------------------------------------+
+2 rows in set (0.000 sec)
