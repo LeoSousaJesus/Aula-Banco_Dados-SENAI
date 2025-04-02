@@ -121,3 +121,5 @@ MariaDB [(none)]> show grants for "mestre@localhost";
 | GRANT SELECT, DELETE ON `bd_estacionamento_110`.`cliente` TO `mestre@localhost`@`%`                             |
 +-----------------------------------------------------------------------------------------------------------------+
 2 rows in set (0.000 sec)
+MariaDB [(none)]> revoke all on BD_estacionamento_110.cliente from"mestre@localhost";
+Query OK, 0 rows affected (0.002 sec)
