@@ -1,0 +1,54 @@
+delimiter $$
+create procedure p_buscarveiculo(in infoplaca varchar(20))
+begin
+
+select nome_cliente,modelo, nome_marca, placa
+from cliente
+inner join carro
+on id_cliente = fkid_cliente
+inner join modelo
+on id_modelo = fkid_modelo
+inner join marca
+on id_marca = fkid_marca
+where placa = infoplaca;
+
+end $$
+delimiter ;
+
+call p_buscarveiculo("UIO8V90");
+
+delimiter $$
+create procedure p_deletarcliente(in delcliente int)
+begin
+delete from cliente
+where id_cliente = delcliente;
+end $$
+delimiter ;
+
+call p_deletarcliente(1);
+
+select * from cliente;
+
+delimiter $$
+create procedure p_alterarmodelo(in modalterado varchar(20), in cliente int)
+begin
+update modelo
+set modelo = modalterado
+where id_modelo = cliente;
+end $$
+delimiter ;
+
+call p_alterarmodelo("jeep",1);
+
+select * from modelo;
+
+delimiter $$
+create procedure p_inserircliente(in n varchar(30), in s varchar(30), in sx char(1))
+begin
+insert into cliente(nome_cliente, sobrenome_cliente, sexo) values(n,s,sx);
+
+select * from cliente;
+end $$
+delimiter ;
+
+call p_inserircliente("Juju","Sousa","F");
