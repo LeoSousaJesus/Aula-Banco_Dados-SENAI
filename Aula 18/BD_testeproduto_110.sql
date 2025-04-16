@@ -1,4 +1,7 @@
+-- Criar o banco testeproduto_110
 CREATE DATABASE testeproduto_110;
+
+-- Comando para rodar o banco
 USE testeproduto_110;
 
 CREATE TABLE produto_110 (
@@ -31,6 +34,50 @@ BEGIN
 END $$
 DELIMITER ;
 
+
 CALL inserir_produtos();
 
 SELECT * FROM produto_110;
+
+DELIMITER $$
+CREATE TRIGGER inserirBKP_produto
+AFTER INSERT ON produto_110
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_produto_110 (IDproduto, produto, quantidade, valor)
+    VALUES (NEW.Idproduto, NEW.produto, NEW.quantidade, NEW.valor);
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER deletarBKP_produto
+AFTER DELETE ON produto_110
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_produto_110 (IDproduto, produto, quantidade, valor)
+    VALUES (OLD.Idproduto, OLD.produto, OLD.quantidade, OLD.valor);
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER updateBKP_valor
+AFTER UPDATE ON produto_110
+FOR EACH ROW
+BEGIN
+    IF OLD.valor <> NEW.valor THEN
+        INSERT INTO BKP_produto_110 (IDproduto, produto, quantidade, valor)
+        VALUES (NEW.Idproduto, NEW.produto, NEW.quantidade, NEW.valor);
+    END IF;
+END $$
+DELIMITER ;
+
+-- Deletar um produto
+DELETE FROM produto_110
+WHERE Idproduto = 1;
+
+-- Verificando produtos
+SELECT * FROM produto_110;
+
+
