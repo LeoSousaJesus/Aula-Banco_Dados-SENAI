@@ -1,4 +1,4 @@
-CREATE DATABASE  testeproduto_110;
+CREATE DATABASE testeproduto_110;
 USE testeproduto_110;
 
 CREATE TABLE produto_110 (
@@ -17,18 +17,20 @@ CREATE TABLE BKP_produto_110(
 );
 
 DELIMITER $$
-CREATE PROCEDURE sp_inserir_produtos()
+CREATE PROCEDURE inserir_produtos()
 BEGIN
-    -- Inserindo o Notebook Dell
     INSERT INTO produto_110 (produto, quantidade, valor) 
-    VALUES ('Notebook Dell', 10, 3599.99);
+    VALUES ('Notebook', 10, 3599.99);
     
-    -- Inserindo o Mouse Sem Fio
     INSERT INTO produto_110 (produto, quantidade, valor) 
-    VALUES ('Mouse Sem Fio', 50, 89.90);
+    VALUES ('Mouse', 50, 89.90);
     
     -- Inserindo o Teclado Mecânico
     INSERT INTO produto_110 (produto, quantidade, valor) 
-    VALUES ('Teclado Mecânico', 25, 249.50);
+    VALUES ('Teclado', 25, 249.50);
 END $$
 DELIMITER ;
+
+CALL inserir_produtos();
+
+SELECT * FROM produto_110;
