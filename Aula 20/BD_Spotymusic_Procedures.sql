@@ -40,14 +40,14 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL sp_inserir_artista('Bon Jovi', 1);
+CALL sp_inserir_artista('Bon Jovi', 11);
 SELECT * FROM ARTISTA;
 
 
 -- PROCEDURE ALBUM
 DELIMITER $$
 CREATE PROCEDURE sp_inserir_album(
-    IN p_titulo VARCHAR(20),
+    IN p_titulo VARCHAR(100),
     IN p_ano YEAR,
     IN p_fkid_artista INT
 )
@@ -56,14 +56,14 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL sp_inserir_album("Cross Road", "1994", 1);
+CALL sp_inserir_album("Cross Road", "1994", 11);
 SELECT * FROM ALBUM;
 
 
 -- PROCEDURE MUSICA
 DELIMITER $$
 CREATE PROCEDURE sp_inserir_musica(
-    IN p_musica VARCHAR(25),
+    IN p_musica VARCHAR(100),
     IN p_duracao TIME,
     IN p_fkid_compositor INT,
     IN p_fkid_genero INT,
@@ -75,7 +75,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL sp_inserir_musica('Always', '00:05:53', 1,1,1);
+CALL sp_inserir_musica('Blaze of Glory', '00:05:40', 11,1,11);
 SELECT * FROM MUSICA;
 
 -- PROCEDURE PLAYLIST
@@ -104,5 +104,5 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL sp_inserir_musica_playlist(1, 1);
+CALL sp_inserir_musica_playlist(201, 6);
 SELECT * FROM MUSICA_PLAYLIST;
