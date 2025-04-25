@@ -1,4 +1,6 @@
--- INSERT'S para cada tabela
+/*
+	INSERT'S para cada tabela
+*/
 
 -- INSERT'S para a tabela Genero
 INSERT INTO Genero (genero) VALUES 
