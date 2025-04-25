@@ -51,3 +51,4 @@ CREATE TABLE musica_playlist(
     FOREIGN KEY (fkid_musica) REFERENCES Musica(IdMusica) ON DELETE CASCADE,
     FOREIGN KEY (fkid_playlist) REFERENCES Playlist(IdPlaylist) ON DELETE CASCADE
 );
+
