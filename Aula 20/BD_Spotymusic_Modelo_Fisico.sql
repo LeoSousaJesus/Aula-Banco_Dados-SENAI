@@ -21,7 +21,7 @@ CREATE TABLE Artista(
 
 CREATE TABLE Album(
 	IdAlbum INT PRIMARY KEY AUTO_INCREMENT,
-    titulo VARCHAR(20) NOT NULL,
+    titulo VARCHAR(100) NOT NULL,
     ano YEAR NOT NULL,
     fkid_artista INT,
     FOREIGN KEY (fkid_artista) REFERENCES Artista(IdArtista) ON DELETE CASCADE
@@ -34,7 +34,7 @@ CREATE TABLE Playlist(
 
 CREATE TABLE Musica (
 	IdMusica INT PRIMARY KEY AUTO_INCREMENT,
-    musica VARCHAR(25) NOT NULL,
+    musica VARCHAR(100) NOT NULL,
     duracao TIME NOT NULL,
     fkid_compositor INT,
     fkid_genero INT,
@@ -51,4 +51,3 @@ CREATE TABLE musica_playlist(
     FOREIGN KEY (fkid_musica) REFERENCES Musica(IdMusica) ON DELETE CASCADE,
     FOREIGN KEY (fkid_playlist) REFERENCES Playlist(IdPlaylist) ON DELETE CASCADE
 );
-
