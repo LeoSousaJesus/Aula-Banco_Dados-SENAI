@@ -1,0 +1,218 @@
+# Triggers para INSERT
+
+-- COMPOSITOR
+DELIMITER $$
+CREATE TRIGGER TRG_AI_COMPOSITOR
+AFTER INSERT ON Compositor
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_COMPOSITOR (IDCOMPOSITOR, COMPOSITOR, SOBRENOME, USUARIO, DATA)
+    VALUES (NEW.IdCompositor, NEW.compositor, NEW.sobrenome, USER(), NOW());
+END $$
+DELIMITER ;
+
+-- GENERO
+DELIMITER $$
+CREATE TRIGGER TRG_AI_GENERO
+AFTER INSERT ON Genero
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_GENERO (IDGENERO, GENERO, USUARIO, DATA)
+    VALUES (NEW.IdGenero, NEW.genero, USER(), NOW());
+END $$
+DELIMITER ;
+
+-- ARTISTA
+DELIMITER $$
+CREATE TRIGGER TRG_AI_ARTISTA
+AFTER INSERT ON Artista
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_ARTISTA (IDARTISTA, NOME, FKID_GENERO, USUARIO, DATA)
+    VALUES (NEW.IdArtista, NEW.nome, NEW.fkid_genero, USER(), NOW());
+END $$
+DELIMITER ;
+
+-- ALBUM
+DELIMITER $$
+CREATE TRIGGER TRG_AI_ALBUM
+AFTER INSERT ON Album
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_ALBUM (IDALBUM, TITULO, ANO, FKID_ARTISTA, USUARIO, DATA)
+    VALUES (NEW.IdAlbum, NEW.titulo, NEW.ano, NEW.fkid_artista, USER(), NOW());
+END $$
+DELIMITER ;
+
+-- PLAYLIST
+DELIMITER $$
+CREATE TRIGGER TRG_AI_PLAYLIST
+AFTER INSERT ON Playlist
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_PLAYLIST (IDPLAYLIST, PLAYLIST, USUARIO, DATA)
+    VALUES (NEW.IdPlaylist, NEW.playlist, USER(), NOW());
+END $$
+DELIMITER ;
+
+-- MUSICA
+DELIMITER $$
+CREATE TRIGGER TRG_AI_MUSICA
+AFTER INSERT ON Musica
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_MUSICA (IDMUSICA, MUSICA, DURACAO, FKID_COMPOSITOR, FKID_GENERO, FKID_ALBUM, USUARIO, DATA)
+    VALUES (NEW.IdMusica, NEW.musica, NEW.duracao, NEW.fkid_compositor, NEW.fkid_genero, NEW.fkid_album, USER(), NOW());
+END $$
+DELIMITER ;
+
+-- MUSICA_PLAYLIST
+DELIMITER $$
+CREATE TRIGGER TRG_AI_MUSICAPLAYLIST
+AFTER INSERT ON musica_playlist
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_MUSICAPLAYLIST (FKID_MUSICA, FKID_PLAYLIST, USUARIO, DATA)
+    VALUES (NEW.fkid_musica, NEW.fkid_playlist, USER(), NOW());
+END $$
+DELIMITER ;
+
+
+# Triggers para DELETE
+
+-- COMPOSITOR
+DELIMITER $$
+CREATE TRIGGER TRG_BD_COMPOSITOR
+BEFORE DELETE ON Compositor
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_COMPOSITOR (IDCOMPOSITOR, COMPOSITOR, SOBRENOME, USUARIO, DATA, OPERACAO)
+    VALUES (OLD.IdCompositor, OLD.compositor, OLD.sobrenome, USER(), NOW(), 'DELETE');
+END $$
+DELIMITER ;
+
+-- GENERO
+DELIMITER $$
+CREATE TRIGGER TRG_BD_GENERO
+BEFORE DELETE ON Genero
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_GENERO (IDGENERO, GENERO, USUARIO, DATA, OPERACAO)
+    VALUES (OLD.IdGenero, OLD.genero, USER(), NOW(), 'DELETE');
+END $$
+DELIMITER ;
+
+-- ARTISTA
+DELIMITER $$
+CREATE TRIGGER TRG_BD_ARTISTA
+BEFORE DELETE ON Artista
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_ARTISTA (IDARTISTA, NOME, FKID_GENERO, USUARIO, DATA, OPERACAO)
+    VALUES (OLD.IdArtista, OLD.nome, OLD.fkid_genero, USER(), NOW(), 'DELETE');
+END $$
+DELIMITER ;
+
+-- ALBUM
+DELIMITER $$
+CREATE TRIGGER TRG_BD_ALBUM
+BEFORE DELETE ON Album
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_ALBUM (IDALBUM, TITULO, ANO, FKID_ARTISTA, USUARIO, DATA, OPERACAO)
+    VALUES (OLD.IdAlbum, OLD.titulo, OLD.ano, OLD.fkid_artista, USER(), NOW(), 'DELETE');
+END $$
+DELIMITER ;
+
+-- PLAYLIST
+DELIMITER $$
+CREATE TRIGGER TRG_BD_PLAYLIST
+BEFORE DELETE ON Playlist
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_PLAYLIST (IDPLAYLIST, PLAYLIST, USUARIO, DATA, OPERACAO)
+    VALUES (OLD.IdPlaylist, OLD.playlist, USER(), NOW(), 'DELETE');
+END $$
+DELIMITER ;
+
+-- MUSICA
+DELIMITER $$
+CREATE TRIGGER TRG_BD_MUSICA
+BEFORE DELETE ON Musica
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_DELETE_MUSICA (IDMUSICA, MUSICA, DURACAO, FKID_COMPOSITOR, FKID_GENERO, FKID_ALBUM, USUARIO, DATA)
+    VALUES (OLD.IdMusica, OLD.musica, OLD.duracao, OLD.fkid_compositor, OLD.fkid_genero, OLD.fkid_album, USER(), NOW());
+END $$
+DELIMITER ;
+
+-- MUSICA_PLAYLIST
+DELIMITER $$
+CREATE TRIGGER TRG_BD_MUSICAPLAYLIST
+BEFORE DELETE ON musica_playlist
+FOR EACH ROW
+BEGIN
+    INSERT INTO BKP_MUSICAPLAYLIST (FKID_MUSICA, FKID_PLAYLIST, USUARIO, DATA, OPERACAO)
+    VALUES (OLD.fkid_musica, OLD.fkid_playlist, USER(), NOW(), 'DELETE');
+END $$
+DELIMITER ;
+
+
+# Procedures de Inserção
+
+-- PROCEDURE PARA CRIAR 10 MUSICAS PARA CADA ALBUM
+DELIMITER $$
+CREATE PROCEDURE PP_insert_musica(IN p_fkid_album INT)
+BEGIN
+    DECLARE i INT DEFAULT 1;
+    DECLARE v_artista_id INT;
+    DECLARE v_genero_id INT;
+    DECLARE v_compositor_id INT;
+    
+    -- Obter informações do álbum
+    SELECT fkid_artista INTO v_artista_id FROM Album WHERE IdAlbum = p_fkid_album;
+    SELECT fkid_genero INTO v_genero_id FROM Artista WHERE IdArtista = v_artista_id;
+    
+    WHILE i <= 10 DO
+        -- Usar compositor padrão ou alternar entre compositores existentes
+        SET v_compositor_id = (SELECT IdCompositor FROM Compositor ORDER BY RAND() LIMIT 1);
+        
+        INSERT INTO Musica (musica, duracao, fkid_compositor, fkid_genero, fkid_album)
+        VALUES (CONCAT('Música ', i), 
+                SEC_TO_TIME(FLOOR(120 + RAND() * 300)), -- Duração entre 2 e 7 minutos
+                v_compositor_id, 
+                v_genero_id, 
+                p_fkid_album);
+        SET i = i + 1;
+    END WHILE;
+END $$
+DELIMITER ;
+
+-- PROCEDURE PARA INSERIR MUSICAS NA PLAYLIST (AJUSTADA)
+DELIMITER $$
+CREATE PROCEDURE Pp_insert_musicaplaylist(IN p_fkid_playlist INT)
+BEGIN
+    DECLARE i INT DEFAULT 1;
+    DECLARE v_musica_id INT;
+    DECLARE v_count INT;
+    
+    -- Contar músicas existentes
+    SELECT COUNT(*) INTO v_count FROM Musica;
+    
+    WHILE i <= 10 DO
+        -- Selecionar música aleatória que não está na playlist
+        SELECT IdMusica INTO v_musica_id FROM Musica 
+        WHERE IdMusica NOT IN (
+            SELECT fkid_musica FROM musica_playlist WHERE fkid_playlist = p_fkid_playlist
+        ) ORDER BY RAND() LIMIT 1;
+        
+        -- Se encontrou música disponível, inserir
+        IF v_musica_id IS NOT NULL THEN
+            INSERT INTO musica_playlist (fkid_musica, fkid_playlist)
+            VALUES (v_musica_id, p_fkid_playlist);
+        END IF;
+        
+        SET i = i + 1;
+    END WHILE;
+END $$
+DELIMITER ;
