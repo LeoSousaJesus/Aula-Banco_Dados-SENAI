@@ -25,7 +25,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL P_INSERT_GENERO("Rock");
+CALL sp_inserir_genero('Rock');
 SELECT * FROM GENERO;
 
 
